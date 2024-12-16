@@ -1,0 +1,253 @@
+.novel-detail {
+  .container {
+    .thumbnal {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      gap: 40px;
+      .thumb {
+        width: 330px;
+        height: 480px;
+        overflow: hidden;
+        border-radius: 5px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: 0.3s ease;
+          opacity: 90%;
+          &:hover {
+            transform: scale(1.1);
+            opacity: 100%;
+          }
+        }
+      }
+      .thumb-detail {
+        color: var(--text-sec-color);
+        .name {
+          color: var(--text-sec-color);
+          &:hover {
+            color: var(--tect-main-color);
+          }
+        }
+        address {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-direction: row-reverse;
+          .Author {
+            display: flex;
+            /* justify-content: flex-end; */
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            a {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .Author-img {
+                border-radius: 50%;
+                overflow: hidden;
+                width: 60px;
+                height: 60px;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .Author-name {
+                color: var(--text-sec-color);
+                &:hover {
+                  color: var(--tect-main-color);
+                }
+              }
+            }
+          }
+        }
+        .rating {
+          display: flex;
+          justify-content: space-between;
+          .rank,
+          .views,
+          .chapers {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-sec-color);
+            &:hover {
+              color: var(--tect-main-color);
+            }
+            &:not(.rank) {
+              border-left: 2px var(--blue-alt-color) solid;
+              padding-left: 20px;
+            }
+          }
+          .rank {
+            .order {
+              // h3 {
+              // }
+            }
+            .icon-order {
+              font-size: 20px;
+            }
+          }
+          .chapters {
+            .chapter {
+              h3 {
+              }
+            }
+            .icon-chapter {
+              font-size: 20px;
+            }
+          }
+          .views {
+            .icon-views {
+              font-size: 20px;
+            }
+          }
+        }
+        .add-read {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-around;
+          .add-to,
+          .read {
+            padding: 10px;
+            background-color: var(--section-background);
+            border-radius: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-top: 50px;
+            &:hover {
+              background-color: var(--bg-black);
+              color: var(--tect-main-color);
+            }
+            i {
+              font-size: 20px;
+            }
+          }
+          .add-to {
+          }
+          .read {
+          }
+        }
+      }
+    }
+    .story-novel {
+      border-bottom: solid var(--blue-alt-color) 2px;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
+      .datil-nov {
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: var(--bg-black-sec);
+        color: var(--text-sec-color);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        summary {
+          h4 {
+            color: var(--text-sec-color);
+          }
+        }
+      }
+    }
+    .chapters {
+      border-bottom: solid var(--blue-alt-color) 2px;
+      .chapter-titel {
+        display: flex;
+        justify-content: flex-end;
+        h2 {
+          color: var(--text-sec-color);
+        }
+      }
+      .chapter-cont {
+        padding: 5px;
+        .ch {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          margin-bottom: 20px;
+          a {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 40px;
+            span {
+              color: var(--text-sec-color);
+              &:hover {
+                color: var(--tect-main-color);
+              }
+            }
+            .deat {
+              color: var(--text-sec-color);
+              &:hover {
+                color: var(--tect-main-color);
+              }
+            }
+          }
+          .icon-ch {
+            display: flex;
+            align-items: center;
+            align-items: baseline;        
+            gap: 20px;
+            .icon-com,
+            .icon-eye {
+              a {
+                display: flex;
+                align-items: center;
+                color: var(--text-sec-color);
+                gap: 10px;
+                i,
+                span {
+                  &:hover {
+                    color: var(--tect-main-color);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .comments {
+      .comment-titel {
+        color: var(--text-sec-color);
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        gap: 10px;
+        &:hover {
+          color: var(--tect-main-color);
+        }
+      }
+      .add-comment {
+        display: flex;
+        justify-content: flex-end;
+        form {
+          input {
+            border-radius: 10px;
+            width: 300px;
+            height: 40px;
+            padding-left: 15px;
+          }
+          button {
+            font-weight: bold;
+            padding:10px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            background-color: rgb(20 83 45);
+            &:hover {
+              background-color: rgb(22 163 74);
+            }
+          }
+        }
+      }
+    }
+  }
+}

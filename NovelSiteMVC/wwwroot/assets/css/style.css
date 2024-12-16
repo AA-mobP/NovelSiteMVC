@@ -1,0 +1,1002 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Amiri", serif;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  background-color: black;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Small */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+/* Medium */
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+/* Large */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+:root {
+  --blue-color: #0075ff;
+  --blue-alt-color: #0d69d5;
+  --orange-color: #f59e0b;
+  --green-color: #22c55e;
+  --red-color: #f44336;
+  --grey-color: #888;
+  --section-background: rgb(30 41 59);
+  --tect-main-color: white;
+  --text-sec-color:#b9b9b9;
+  --bg-black:rgb(2 6 23);
+  --bg-black-sec:rgb(17, 18, 21);
+}
+
+header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 100px;
+  background-color: var(--section-background);
+  border-bottom: 2px solid var(--blue-alt-color);
+}
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+header .container .logo a span {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--blue-alt-color);
+}
+header .container .nav-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 40px;
+}
+header .container .nav-bar .nav-bar-menu {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 40px;
+}
+header .container .nav-bar .nav-bar-menu li a {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-sec-color);
+  font-weight: bold;
+}
+header .container .nav-bar .nav-bar-menu li a:hover {
+  color: var(--tect-main-color);
+}
+header .container .nav-bar .search input {
+  border-radius: 10px;
+  padding: 5px 10px;
+  border-color: var();
+}
+header .container .nav-bar .search i {
+  color: white;
+}
+header .container .nav-bar .mode-switch {
+  background-color: var(--blue-alt-color);
+  width: 60px;
+  border-radius: 16px;
+}
+header .container .nav-bar .mode-switch .theme {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+header .container .nav-bar .mode-switch .theme i {
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: rgb(15, 23, 42);
+}
+header .container .login-out button {
+  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: rgb(20, 83, 45);
+}
+header .container .login-out button:hover {
+  background-color: rgb(22, 163, 74);
+}
+
+.motions .container .motion-titel {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+  border-bottom: solid var(--blue-alt-color) 2px;
+  margin-bottom: 30px;
+}
+.motions .container .motion-titel i,
+.motions .container .motion-titel h2 {
+  color: var(--text-sec-color);
+}
+.motions .container .motion-titel i:hover,
+.motions .container .motion-titel h2:hover {
+  color: var(--tect-main-color);
+}
+.motions .container .motions-con {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.motions .container .motions-con .motio-novel .motio-img {
+  width: 165px;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.motions .container .motions-con .motio-novel .motio-img:hover i {
+  display: block;
+}
+.motions .container .motions-con .motio-novel .motio-img i {
+  position: absolute;
+  color: var(--blue-alt-color);
+  z-index: 1;
+  font-size: 30px;
+  display: none;
+}
+.motions .container .motions-con .motio-novel .motio-img a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s ease;
+  opacity: 90%;
+}
+.motions .container .motions-con .motio-novel .motio-img a img:hover {
+  transform: scale(1.1);
+  opacity: 100%;
+}
+.motions .container .motions-con .motio-novel .motio-name a h3 {
+  color: var(--text-sec-color);
+}
+.motions .container .motions-con .motio-novel .motio-name a h3:hover {
+  color: var(--tect-main-color);
+}
+
+.nav-top .container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.nav-top .container .text-top {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--text-sec-color);
+}
+.nav-top .container .text-top h3 {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+  width: 100%;
+  border-bottom: solid var(--blue-alt-color) 2px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.nav-top .container .text-top:hover {
+  color: var(--tect-main-color);
+}
+.nav-top .container .novels-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.nav-top .container .novels-top .novel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+.nav-top .container .novels-top .novel a .img-fg {
+  width: 165px;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.nav-top .container .novels-top .novel a .img-fg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s ease;
+  opacity: 90%;
+}
+.nav-top .container .novels-top .novel a .img-fg img:hover {
+  transform: scale(1.1);
+  opacity: 100%;
+}
+.nav-top .container .novels-top .novel a .img-fg .rank {
+  position: absolute;
+  top: 86%;
+  padding: 5px;
+  background-color: black;
+  color: var(--tect-main-color);
+}
+.nav-top .container .novels-top .novel a .img-fg .rank i {
+  color: var(--orange-color);
+}
+.nav-top .container .novels-top .novel a .novel-titel {
+  color: var(--text-sec-color);
+  text-transform: capitalize;
+}
+.nav-top .container .novels-top .novel a .novel-titel:hover {
+  color: var(--tect-main-color);
+}
+.nav-top .container .novels-top .novel .novel-chap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter {
+  background-color: var(--section-background);
+  border-radius: 5px;
+  width: 100%;
+  padding: 2px;
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter a {
+  color: var(--text-sec-color);
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding: 2px;
+  gap: 5px;
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter a .deats {
+  font-size: 12px;
+  display: contents;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  flex-direction: row-reverse;
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter a .new-ch {
+  color: var(--red-color);
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter a .new-ch:hover {
+  color: red;
+}
+.nav-top .container .novels-top .novel .novel-chap .num-chapter a:hover {
+  color: var(--tect-main-color);
+}
+
+section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  background-color: var(--bg-black-sec);
+}
+section .container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+}
+section .container aside {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+section .container aside .aside-titel {
+  color: var(--text-sec-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+section .container aside .aside-titel h3 {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+  width: 100%;
+  border-bottom: solid var(--blue-alt-color) 2px;
+  padding-bottom: 10px;
+}
+section .container aside .aside-titel h3:hover {
+  color: var(--tect-main-color);
+}
+section .container aside .aside-titel .top-reade {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-direction: row-reverse;
+  background-color: var(--section-background);
+  border-radius: 5px;
+}
+section .container aside .aside-titel .top-reade .day,
+section .container aside .aside-titel .top-reade .week,
+section .container aside .aside-titel .top-reade .month {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section .container aside .aside-titel .top-reade .day:hover,
+section .container aside .aside-titel .top-reade .week:hover,
+section .container aside .aside-titel .top-reade .month:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+  width: 100%;
+}
+section .container aside .aside-novel .list-novel {
+  margin-bottom: 10px;
+}
+section .container aside .aside-novel .list-novel a {
+  display: flex;
+  flex-direction: row-reverse;
+}
+section .container aside .aside-novel .list-novel a figure {
+  position: relative;
+  width: 120px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+section .container aside .aside-novel .list-novel a figure img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  transition: 0.3s ease;
+  opacity: 90%;
+}
+section .container aside .aside-novel .list-novel a figure img:hover {
+  transform: scale(1.1);
+  opacity: 100%;
+}
+section .container aside .aside-novel .list-novel a .info {
+  color: var(--text-sec-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+section .container aside .aside-novel .list-novel a .info .name {
+  color: var(--text-sec-color);
+  text-transform: capitalize;
+}
+section .container aside .aside-novel .list-novel a .info .name:hover {
+  color: var(--tect-main-color);
+}
+section .container aside .aside-novel .list-novel a .info .rating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-end;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+section .container aside .aside-novel .list-novel a .info .rating span {
+  padding: 0px 5px;
+  background-color: var(--section-background);
+  border-radius: 5px;
+}
+section .container aside .aside-novel .list-novel a .info .rating span:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+}
+section .container aside .aside-novel .list-novel a .info .top {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+section .container aside .aside-novel .list-novel a .info .top .arrow-up {
+  color: var(--green-color);
+}
+section .container aside .aside-novel .list-novel a .info .top .arrow-up,
+section .container aside .aside-novel .list-novel a .info .top .watch,
+section .container aside .aside-novel .list-novel a .info .top .star {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+section .container aside .aside-novel .list-novel a .info .top .arrow-up:hover,
+section .container aside .aside-novel .list-novel a .info .top .watch:hover,
+section .container aside .aside-novel .list-novel a .info .top .star:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+}
+section .container aside .aside-novel .list-novel a .info .trop {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 5px;
+  font-size: 25px;
+  color: gold;
+}
+section .container article .alrt-title {
+  color: var(--text-sec-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-radius: 5px;
+  width: 100%;
+}
+section .container article .alrt-title h3 {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+  width: 100%;
+  border-bottom: solid var(--blue-alt-color) 2px;
+  padding-bottom: 10px;
+}
+section .container article .alrt-title h3:hover {
+  color: var(--tect-main-color);
+}
+section .container article .list-novels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+section .container article .list-novels .novels-li {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+section .container article .list-novels .novels-li span i {
+  color: var(--orange-color);
+}
+section .container article .list-novels .novels-li a .fgr {
+  width: 120px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+section .container article .list-novels .novels-li a .fgr img {
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease;
+  opacity: 90%;
+}
+section .container article .list-novels .novels-li a .fgr img:hover {
+  transform: scale(1.1);
+  opacity: 100%;
+}
+section .container article .list-novels .novels-li a .nov-name span {
+  color: var(--text-sec-color);
+  text-transform: capitalize;
+}
+section .container article .list-novels .novels-li a .nov-name span:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+}
+
+.novel-detail .container .thumbnal {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: 40px;
+}
+.novel-detail .container .thumbnal .thumb {
+  width: 330px;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.novel-detail .container .thumbnal .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s ease;
+  opacity: 90%;
+}
+.novel-detail .container .thumbnal .thumb img:hover {
+  transform: scale(1.1);
+  opacity: 100%;
+}
+.novel-detail .container .thumbnal .thumb-detail {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .name {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .name:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .thumbnal .thumb-detail address {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author {
+  display: flex;
+  /* justify-content: flex-end; */
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author a .Author-img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author a .Author-img img {
+  width: 100%;
+  height: 100%;
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author a .Author-name {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .thumbnal .thumb-detail address .Author a .Author-name:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .rating {
+  display: flex;
+  justify-content: space-between;
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .rank,
+.novel-detail .container .thumbnal .thumb-detail .rating .views,
+.novel-detail .container .thumbnal .thumb-detail .rating .chapers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-sec-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .rank:hover,
+.novel-detail .container .thumbnal .thumb-detail .rating .views:hover,
+.novel-detail .container .thumbnal .thumb-detail .rating .chapers:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .rank:not(.rank),
+.novel-detail .container .thumbnal .thumb-detail .rating .views:not(.rank),
+.novel-detail .container .thumbnal .thumb-detail .rating .chapers:not(.rank) {
+  border-left: 2px var(--blue-alt-color) solid;
+  padding-left: 20px;
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .rank .icon-order {
+  font-size: 20px;
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .chapters .icon-chapter {
+  font-size: 20px;
+}
+.novel-detail .container .thumbnal .thumb-detail .rating .views .icon-views {
+  font-size: 20px;
+}
+.novel-detail .container .thumbnal .thumb-detail .add-read {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+.novel-detail .container .thumbnal .thumb-detail .add-read .add-to,
+.novel-detail .container .thumbnal .thumb-detail .add-read .read {
+  padding: 10px;
+  background-color: var(--section-background);
+  border-radius: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 50px;
+}
+.novel-detail .container .thumbnal .thumb-detail .add-read .add-to:hover,
+.novel-detail .container .thumbnal .thumb-detail .add-read .read:hover {
+  background-color: var(--bg-black);
+  color: var(--tect-main-color);
+}
+.novel-detail .container .thumbnal .thumb-detail .add-read .add-to i,
+.novel-detail .container .thumbnal .thumb-detail .add-read .read i {
+  font-size: 20px;
+}
+.novel-detail .container .story-novel {
+  border-bottom: solid var(--blue-alt-color) 2px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.novel-detail .container .story-novel .datil-nov {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: var(--bg-black-sec);
+  color: var(--text-sec-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.novel-detail .container .story-novel .datil-nov summary h4 {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .chapters {
+  border-bottom: solid var(--blue-alt-color) 2px;
+}
+.novel-detail .container .chapters .chapter-titel {
+  display: flex;
+  justify-content: flex-end;
+}
+.novel-detail .container .chapters .chapter-titel h2 {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .chapters .chapter-cont {
+  padding: 5px;
+}
+.novel-detail .container .chapters .chapter-cont .ch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  margin-bottom: 20px;
+}
+.novel-detail .container .chapters .chapter-cont .ch a {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 40px;
+}
+.novel-detail .container .chapters .chapter-cont .ch a span {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .chapters .chapter-cont .ch a span:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .chapters .chapter-cont .ch a .deat {
+  color: var(--text-sec-color);
+}
+.novel-detail .container .chapters .chapter-cont .ch a .deat:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch {
+  display: flex;
+  align-items: center;
+  align-items: baseline;
+  gap: 20px;
+}
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-com a,
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-eye a {
+  display: flex;
+  align-items: center;
+  color: var(--text-sec-color);
+  gap: 10px;
+}
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-com a i:hover,
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-com a span:hover,
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-eye a i:hover,
+.novel-detail .container .chapters .chapter-cont .ch .icon-ch .icon-eye a span:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .comments .comment-titel {
+  color: var(--text-sec-color);
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+.novel-detail .container .comments .comment-titel:hover {
+  color: var(--tect-main-color);
+}
+.novel-detail .container .comments .add-comment {
+  display: flex;
+  justify-content: flex-end;
+}
+.novel-detail .container .comments .add-comment form input {
+  border-radius: 10px;
+  width: 300px;
+  height: 40px;
+  padding-left: 15px;
+}
+.novel-detail .container .comments .add-comment form button {
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: rgb(20, 83, 45);
+}
+.novel-detail .container .comments .add-comment form button:hover {
+  background-color: rgb(22, 163, 74);
+}
+
+.profile .container .user-profile .user-im {
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.profile .container .user-profile .user-im .profile-img {
+  position: relative;
+  width: 1000px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.profile .container .user-profile .user-im .profile-img:hover i {
+  display: block;
+}
+.profile .container .user-profile .user-im .profile-img i {
+  top: 10px;
+  left: 10px;
+  position: absolute;
+  color: var(--blue-alt-color);
+  font-size: 25px;
+  display: none;
+}
+.profile .container .user-profile .user-im .profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 85%;
+}
+.profile .container .user-profile .user-im .profile-img img:hover {
+  opacity: 100%;
+}
+.profile .container .user-profile .user-im .user {
+  position: absolute;
+  line-height: 0;
+  top: 90%;
+  left: 88%;
+}
+.profile .container .user-profile .user-im .user .imag-user {
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+}
+.profile .container .user-profile .user-im .user .imag-user img {
+  width: 100%;
+  height: 100%;
+}
+.profile .container .user-profile .user-im .user .user-name {
+  color: var(--text-sec-color);
+  display: flex;
+  justify-content: center;
+}
+.profile .container .user-profile .user-im .user .user-name:hover {
+  color: var(--tect-main-color);
+}
+.profile .container .user-profile .user-libary .libary-tatil {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  border-bottom: solid var(--blue-alt-color) 2px;
+}
+.profile .container .user-profile .user-libary .libary-tatil i,
+.profile .container .user-profile .user-libary .libary-tatil h2 {
+  color: var(--text-sec-color);
+}
+.profile .container .user-profile .user-libary .libary-tatil i:hover,
+.profile .container .user-profile .user-libary .libary-tatil h2:hover {
+  color: var(--tect-main-color);
+}
+.profile .container .user-profile .user-libary .libary {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  gap: 40px;
+}
+.profile .container .user-profile .user-libary .libary .novel {
+  position: relative;
+}
+.profile .container .user-profile .user-libary .libary .novel:hover i {
+  display: block;
+}
+.profile .container .user-profile .user-libary .libary .novel i {
+  color: var(--red-color);
+  font-size: 20px;
+  position: absolute;
+  z-index: 1;
+  top: 2%;
+  left: 82%;
+  display: none;
+}
+.profile .container .user-profile .user-libary .libary .novel a .novel-img {
+  width: 140px;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.profile .container .user-profile .user-libary .libary .novel a .novel-img img {
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease;
+  opacity: 100%;
+}
+.profile .container .user-profile .user-libary .libary .novel a .novel-img img:hover {
+  opacity: 50%;
+  transform: scale(1.1);
+}
+.profile .container .user-profile .user-libary .libary .novel a .novel-name {
+  color: var(--text-sec-color);
+}
+.profile .container .user-profile .user-libary .libary .novel a .novel-name:hover {
+  color: var(--tect-main-color);
+}
+.profile .container .user-profile .user-libary .libary .add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile .container .user-profile .user-libary .libary .add a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profile .container .user-profile .user-libary .libary .add a i {
+  font-size: 30px;
+  color: var(--blue-alt-color);
+}
+.profile .container .user-profile .user-libary .libary .add a .add-nov {
+  font-size: 18px;
+  color: var(--text-sec-color);
+}
+.profile .container .user-profile .user-libary .libary .add:hover i {
+  color: var(--blue-color);
+}
+.profile .container .user-profile .user-libary .libary .add:hover .add-nov {
+  color: var(--tect-main-color);
+}
+
+.chapter .container .chapter-titel .chp-cont .name-chapter {
+  color: var(--text-sec-color);
+  display: flex;
+  justify-content: center;
+}
+.chapter .container .chapter-titel .chp-cont .chaptr-novel {
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.chapter .container .chapter-titel .chp-cont .chaptr-novel p {
+  color: var(--text-sec-color);
+  text-indent: 30px;
+  margin-bottom: 20px;
+  font-size: 25px;
+  text-align: right;
+}
+
+footer {
+  background-color: var(--section-background);
+  margin-top: 100px;
+  border-top: 2px solid var(--blue-alt-color);
+}
+footer .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+footer .container .box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+footer .container .box h3 {
+  color: var(--blue-color);
+  font-size: 25px;
+}
+footer .container .box .social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+footer .container .box .social li {
+  border-radius: 10px;
+  padding: 8px 15px;
+  background-color: gray;
+}
+footer .container .box .social li a i {
+  color: var(--text-sec-color);
+}
+footer .container .box .social .facebook:hover {
+  background-color: var(--blue-color);
+}
+footer .container .box .social .facebook:hover a i {
+  color: var(--tect-main-color);
+}
+footer .container .box .social .youtube:hover {
+  background-color: var(--red-color);
+}
+footer .container .box .social .youtube:hover a i {
+  color: var(--tect-main-color);
+}
+footer .container .box .social .tiktok:hover {
+  background-color: var(--bg-black);
+}
+footer .container .box .social .tiktok:hover a i {
+  color: var(--tect-main-color);
+}
+footer .container .box .social .instagram:hover {
+  background-color: rgb(225, 29, 72);
+}
+footer .container .box .social .instagram:hover a i {
+  color: var(--tect-main-color);
+}
+footer .container .box .social .twitter:hover {
+  background-color: var(--bg-black);
+}
+footer .container .box .social .twitter:hover a i {
+  color: var(--tect-main-color);
+}
+footer .container .box .text {
+  color: var(--text-sec-color);
+}
+footer .container .box .text:hover {
+  color: var(--tect-main-color);
+}
+footer .container .box .navbar-footer {
+  display: flex;
+  flex-direction: column;
+}
+footer .container .box .navbar-footer li a {
+  color: var(--text-sec-color);
+  display: flex;
+  flex-direction: row-reverse;
+}
+footer .container .copyr {
+  border-top: 2px solid var(--blue-alt-color);
+  display: flex;
+  justify-content: center;
+}
+footer .container .copyr h3 {
+  color: var(--tect-main-color);
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,144 @@
+﻿@model NovelSiteMVC.Models.NovelModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    .genres {
+        width: max-content;
+    }
+</style>
+<div class="container bg-white">
+    <h1>Create New Novel</h1>
+
+    <div>
+        <h4>Novel info</h4>
+        <hr />
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.AlterNames)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="AlterNames" />
+                    <span asp-validation-for="AlterNames" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Synposis)
+                </dt>
+                <dd class="col-sm-10">
+                    <textarea class="form-control" style="height:10em;" asp-for="Synposis"></textarea>
+                    <span asp-validation-for="Synposis" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PublishDate)
+                </dt>
+                <dd class="col-sm-10">
+                    <input type="date" class="form-control" asp-for="PublishDate" />
+                    <span asp-validation-for="PublishDate" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.LastEdit)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastEdit)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Author" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Artist)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Artist" />
+                    <span asp-validation-for="Artist" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Publisher" />
+                    <span asp-validation-for="Publisher" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Theme)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Theme" />
+                    <span asp-validation-for="Theme" class="text-danger"></span>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Genres)
+                </dt>
+                <dd id="GenreElement" class="col-sm-10">
+                    <div id="GenreElement" class="row">
+                        @{
+                            string AllGenres = string.Empty;
+                            for (int i = 0; i < Model.Genres.Split('،').Length; i++)
+                            {
+                                <input id="genres@(i)" value="@(Model.Genres.Split('،')[i])" class="col-4 form-control genres" />
+                            }
+                        }
+                    </div>
+                </dd>
+                <dd class="col-sm-12">
+                    <label onclick="addGenre()" class="btn-sm btn-success">&nbsp;+&nbsp;</label>
+                </dd>
+                 <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PhotoName)
+                </dt>
+                <dd class="col-sm-10">
+                    <input type="file" name="image" class="form-control" />
+                </dd>
+                <input id="Genres" asp-for="Genres" type="hidden" />
+                <input asp-for="PhotoName" value="anything" type="hidden" />
+                <input asp-for="Id" type="hidden" />
+            </dl>
+            <input type="submit" value="Create" onclick="setGenres()" class="btn btn-info m-2" />
+        </form>
+    </div>
+    <div>
+        <a class="btn btn-info m-2" asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+<script>
+    let genres = document.getElementsByClassName("genres");
+    function setGenres() {
+        let allGenres = "";
+
+        for (let i = 0; i < genres.length; i++) {
+            if (genres[i].value == "")
+                continue;
+            allGenres += genres[i].value + '،';
+        }
+        allGenres = allGenres.substring(0, allGenres.length - 1);
+        document.getElementById("Genres").value = allGenres;
+    }
+    function addGenre() {
+        let genre = document.getElementById("GenreElement");
+        let newInputGenre = document.createElement('input');
+
+        newInputGenre.id = "genres" + genres.length;
+        newInputGenre.className = "form-control genres";
+
+        genre.appendChild(newInputGenre);
+    }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

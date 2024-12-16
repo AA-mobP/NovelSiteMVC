@@ -1,0 +1,32 @@
+﻿@model HashSet<NovelsViewModel>
+@{
+}
+<div class="novels-list">
+    <div class="container">
+        .
+    </div>
+</div>
+<div class="motions">
+    <div class="container">
+        <div class="motions-con">
+            @{
+                foreach (var novel in Model)
+                {
+                    <div class="motio-novel">
+                        <div class="motio-img">
+                            <i class="fas fa-plus-square"></i>
+                            <a asp-controller="Details" asp-action="Index" asp-route-id="@novel.Id">
+                                <img src="~/assets/image/imag_novel/@(novel.PhotoName)" alt="@novel.Title">
+                            </a>
+                        </div>
+                        <div class="motio-name">
+                            <a asp-controller="Details" asp-action="Index" asp-route-id="@novel.Id">
+                                <h3>@novel.Title</h3>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

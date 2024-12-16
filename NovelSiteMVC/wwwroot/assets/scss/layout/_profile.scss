@@ -1,0 +1,158 @@
+.profile {
+  .container {
+    .user-profile {
+      .user-im {
+        margin-bottom: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        .profile-img {
+          position: relative;
+          width: 1000px;
+          height: 300px;
+          overflow: hidden;
+          border-radius: 10px;
+          &:hover {
+            i{
+                display: block;
+            }
+          }
+          i {
+            top: 10px;
+            left: 10px;
+            position: absolute;
+            color: var(--blue-alt-color);
+            font-size: 25px;
+            display: none;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            opacity: 85%;
+            &:hover {
+              opacity: 100%;
+            }
+          }
+        }
+        .user {
+          position: absolute;
+          line-height: 0;
+          top: 90%;
+          left: 88%;
+          .imag-user {
+            border-radius: 100%;
+            width: 90px;
+            height: 90px;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .user-name {
+            color: var(--text-sec-color);
+            display: flex;
+            justify-content: center;
+            &:hover {
+              color: var(--tect-main-color);
+            }
+          }
+        }
+      }
+      .user-libary {
+        .libary-tatil {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 40px;
+          border-bottom: solid var(--blue-alt-color) 2px;
+          i,
+          h2 {
+            color: var(--text-sec-color);
+            &:hover {
+              color: var(--tect-main-color);
+            }
+          }
+        }
+        .libary {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row-reverse;
+          gap: 40px;
+          .novel {
+            position: relative;
+            &:hover {
+              i {
+                display: block;
+              }
+            }
+            i {
+              color: var(--red-color);
+              font-size: 20px;
+              position: absolute;
+              z-index: 1;
+              top: 2%;
+              left: 82%;
+              display: none;
+            }
+            a {
+              .novel-img {
+                width: 140px;
+                height: 220px;
+                overflow: hidden;
+                border-radius: 5px;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  transition: 0.3s ease;
+                  opacity: 100%;
+                  &:hover {
+                    opacity: 50%;
+                    transform: scale(1.1);
+                  }
+                }
+              }
+              .novel-name {
+                color: var(--text-sec-color);
+                &:hover {
+                  color: var(--tect-main-color);
+                }
+              }
+            }
+          }
+          .add {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              i {
+                font-size: 30px;
+                color: var(--blue-alt-color);
+              }
+              .add-nov {
+                font-size: 18px;
+                color: var(--text-sec-color);
+              }
+            }
+            &:hover {
+              i {
+                color: var(--blue-color);
+              }
+              .add-nov {
+                color: var(--tect-main-color);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

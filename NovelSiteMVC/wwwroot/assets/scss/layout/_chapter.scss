@@ -1,0 +1,25 @@
+.chapter {
+  .container {
+    .chapter-titel {
+      .chp-cont {
+        .name-chapter {
+          color: var(--text-sec-color);
+          display: flex;
+          justify-content: center;
+        }
+        .chaptr-novel {
+          line-height: 1.6;
+          max-width: 800px;
+          margin: 0 auto;
+          p {
+            color: var(--text-sec-color);
+            text-indent: 30px;
+            margin-bottom: 20px;
+            font-size: 25px;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

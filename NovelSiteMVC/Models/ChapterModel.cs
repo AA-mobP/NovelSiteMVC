@@ -9,8 +9,6 @@ namespace NovelSiteMVC.Models
         public int Id { get; set; }
         [Required, MaxLength(50)]
         public string Title { get; set; }
-        [Required, MaxLength(50)]
-        public string ContentUrl { get; set; }
         [Required]
         public int Number { get; set; }
         [ForeignKey("Novel")]

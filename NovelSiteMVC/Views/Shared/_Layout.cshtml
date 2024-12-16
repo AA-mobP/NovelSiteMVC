@@ -5,42 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NovelSiteMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NovelSiteMVC.styles.css" asp-append-version="true" />
+    <!--template links--> *@
+    <link rel="stylesheet" href="~/assets/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/css/novelFremwork.css" />
+    <link rel="stylesheet" href="~/assets/css/style.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NovelSiteMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <div class="page">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index"><img style="height:60px;" src="~/assets/image/logo2.png"/></a>
+                </div>
+                <nav class="nav-bar">
+                    <ul class="nav-bar-menu">
+                        <li>
+                            <a asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i>
+                                <span>الصفحة الرئيسية</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li>
+                            <a asp-controller="Novels" asp-action="Index">
+                                <i class="fas fa-book"></i>
+                                <span>قائمة الروايات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-users"></i>
+                                <span>انضم لنا</span>
+                            </a>
                         </li>
                     </ul>
+                    <div class="search"><input type="search" placeholder="بحث" /></div>
+                    <div class="mode-switch">
+                        <div class="theme">
+                            <i class="fas fas fa-moon"></i>
+                        </div>
+                    </div>
+                </nav>
+                <div class="login-out">
+                    <a href="./profile.html">تسجيل</a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </header>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <footer>
+            <div class="container">
+                <div class="box">
+                    <h3>حفيف الورق</h3>
+                    <ul class="social">
+                        <li class="facebook">
+                            <a href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="youtube">
+                            <a href="">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li class="tiktok">
+                            <a href="">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </li>
+                        <li class="instagram">
+                            <a href="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="twitter">
+                            <a href="">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="text">تواصل معنا وتابعنا على مواقع التواصل الاجتماعى</p>
+                </div>
+                <div class="copyr">
+                    <h3><span class="far fa-copyright"></span>2024</h3>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - NovelSiteMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<NovelSiteMVC.Models.ChapterModel>
+
+@{
+    ViewData["Title"] = "getRelativeToNovel";
+}
+    <p>
+    <a class="btn btn-outline-primary" asp-action="Create" asp-route-novelId="@(Model.First().NovelId)">Add New</a>
+    </p>
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastEdit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Releaser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TLor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PRer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QCer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Watches)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr onclick="location.href='/admin/chapter/details/@(item.Id)';" style="cursor:pointer;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastEdit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Releaser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TLor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PRer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QCer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Watches)
+                    </td>
+                    <td>
+                        <a class="btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

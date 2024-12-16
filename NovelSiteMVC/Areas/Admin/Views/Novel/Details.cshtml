@@ -1,0 +1,165 @@
+﻿@model NovelSiteMVC.Models.NovelModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    .genres {
+        width: max-content;
+    }
+</style>
+<div style="direction:rtl;" class="container bg-white">
+    <h1>Details</h1>
+
+    <div>
+        <h4>Novel info</h4>
+        <img style="width:300px" src="~/assets/image/imag_novel/@(Model.PhotoName)" />
+        <hr />
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Title" />
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.AlterNames)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="AlterNames" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PublishDate)
+                </dt>
+                <dd class="col-sm-10">
+                    <input type="date" class="form-control" asp-for="PublishDate" />
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.LastEdit)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastEdit)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Author" />
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Artist)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Artist" />
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Publisher" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Synposis)
+                </dt>
+                <dd class="col-sm-10">
+                    <textarea class="form-control" style="height:10em;" asp-for="Synposis"></textarea>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Theme)
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Theme" />
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Genres)
+                </dt>
+                <dd class="col-sm-10">
+                    <div id="GenreElement" class="row">
+                        @{
+                            string AllGenres = string.Empty;
+                            for (int i = 0; i < Model.Genres.Split('،').Length; i++)
+                            {
+                                <input id="genres@(i)" value="@(Model.Genres.Split('،')[i])" class="col-4 form-control genres" />
+                            }
+                        }
+                    </div>
+
+                </dd>
+                <dd class="col-sm-10">
+                    <label onclick="addGenre()" class="btn-sm btn-success">&nbsp;+&nbsp;</label>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PhotoName)
+                </dt>
+                <dd class="col-sm-10">
+                    <input type="file" name="image" class="form-control" />
+                </dd>
+                <input id="Genres" asp-for="Genres" type="hidden" />
+                <input asp-for="PhotoName" type="hidden" />
+                <input asp-for="Id" type="hidden" />
+            </dl>
+            <input type="submit" onclick="setGenres()" value="Save Novel" class="btn btn-info m-2" />
+        </form>
+        <a class="btn btn-info m-2" asp-action="Index">Back to List</a>
+    </div>
+    <hr />
+ 
+    <div class="accordion" id="mainAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" href="#" onclick="getRelativeChapters(@Model.Id)">
+                Chapter List
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body container" id="listChapters">
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    let genres = document.getElementsByClassName("genres");
+    function setGenres() {
+        let allGenres = "";
+
+        for (let i = 0; i < genres.length; i++) {
+            if (genres[i].value == "")
+                continue;
+            allGenres += genres[i].value + '،';
+        }
+        allGenres = allGenres.substring(0, allGenres.length - 1);
+        document.getElementById("Genres").value = allGenres;
+    }
+
+    function addGenre() {
+        let genre = document.getElementById("GenreElement");
+        let newInputGenre = document.createElement('input');
+
+        newInputGenre.id = "genres" + genres.length;
+        newInputGenre.className = "form-control genres";
+
+        genre.appendChild(newInputGenre);
+    }
+
+    function getRelativeChapters(novelId) {
+            console.log(novelId);
+            $.ajax({
+                url: "/admin/Chapter/getRelativeToNovel",
+                data: { "novelId": novelId },
+                type: "GET",
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById("listChapters").innerHTML = result;
+                }
+            });
+        }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,225 @@
+section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  background-color: var(--bg-black-sec);
+  .container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    aside {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      .aside-titel {
+        color: var(--text-sec-color);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        // background-color: var(--section-background);
+        // padding: 5px;
+        // border-radius: 5px;
+        width: 100%;
+        h3 {
+          display: flex;
+          align-items: center;
+          flex-direction: row-reverse;
+          gap: 10px;
+          width: 100%;
+          border-bottom: solid var(--blue-alt-color) 2px;
+          padding-bottom: 10px;
+          &:hover {
+            color: var(--tect-main-color);
+          }
+        }
+        .top-reade {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+          flex-direction: row-reverse;
+          background-color: var(--section-background);
+          // padding: 5px;
+          border-radius: 5px;
+          .day,
+          .week,
+          .month {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              background-color: var(--bg-black);
+              color: var(--tect-main-color);
+              width: 100%;
+            }
+            // span {
+            // }
+          }
+        }
+      }
+      .aside-novel {
+        .list-novel {
+          margin-bottom: 10px;
+          a {
+            display: flex;
+            flex-direction: row-reverse;
+            figure {
+              position: relative;
+              width: 120px;
+              height: 180px;
+              border-radius: 10px;
+              overflow: hidden;
+              img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+                transition: 0.3s ease;
+                opacity: 90%;
+                &:hover {
+                  transform: scale(1.1);
+                  opacity: 100%;
+                }
+                // object-fit: contain;
+              }
+            }
+            .info {
+              color: var(--text-sec-color);
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              .name {
+                color: var(--text-sec-color);
+                text-transform: capitalize;
+                &:hover {
+                  color: var(--tect-main-color);
+                }
+              }
+              .rating {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                justify-content: flex-end;
+                width: 100%;
+                overflow: hidden;
+                margin-bottom: 20px;
+                span {
+                  padding: 0px 5px;
+                  background-color: var(--section-background);
+                  border-radius: 5px;
+                  &:hover {
+                    background-color: var(--bg-black);
+                    color: var(--tect-main-color);
+                  }
+                }
+              }
+              .top {
+                display: flex;
+                flex-direction: row-reverse;
+                gap: 10px;
+                .arrow-up {
+                  color: var(--green-color);
+                }
+                .arrow-up,
+                .watch,
+                .star {
+                  display: flex;
+                  align-items: center;
+                  flex-direction: row-reverse;
+                  gap: 5px;
+                  // gap: 5px;
+                  &:hover {
+                    background-color: var(--bg-black);
+                    color: var(--tect-main-color);
+                  }
+                  // i {
+                  // }
+                  // span {
+                  // }
+                }
+              }
+              .trop {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+                gap: 5px;
+                font-size: 25px;
+                color: gold;
+              }
+            }
+          }
+        }
+      }
+    }
+    article {
+      .alrt-title {
+        color: var(--text-sec-color);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        // background-color: var(--section-background);
+        // padding: 5px;
+        border-radius: 5px;
+        width: 100%;
+        h3 {
+          display: flex;
+          align-items: center;
+          flex-direction: row-reverse;
+          gap: 10px;
+          width: 100%;
+          border-bottom: solid var(--blue-alt-color) 2px;
+          padding-bottom: 10px;
+          &:hover {
+            color: var(--tect-main-color);
+          }
+        }
+      }
+      .list-novels {
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        .novels-li {
+          display: flex;
+          flex-direction: column;
+          align-items: baseline;
+          margin-bottom: 20px;
+          span {
+            i {
+              color: var(--orange-color);
+            }
+          }
+          a {
+            .fgr {
+              width: 120px;
+              height: 180px;
+              overflow: hidden;
+              border-radius: 5px;
+              img {
+                width: 100%;
+                height: 100%;
+                transition: 0.3s ease;
+                opacity: 90%;
+                &:hover {
+                  transform: scale(1.1);
+                  opacity: 100%;
+                }
+              }
+            }
+            .nov-name {
+              span {
+                color: var(--text-sec-color);
+                text-transform: capitalize;
+                &:hover {
+                  background-color: var(--bg-black);
+                  color: var(--tect-main-color);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

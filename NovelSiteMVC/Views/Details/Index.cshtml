@@ -1,0 +1,175 @@
+﻿@model DetailsViewModel
+@{
+
+}
+<div class="novel-detail">
+    <div class="container">
+        <div class="thumbnal">
+            <div class="thumb">
+                <img src="~/assets/image/imag_novel/@(Model.PhotoName)" alt="@Model.Title" />
+            </div>
+            <div class="thumb-detail">
+                <div class="name">
+                    <h1>@Model.Title</h1>
+                </div>
+                <address>
+                    <div class="Author">
+                        <div class="Author-titel"><span>تاليف</span></div>
+                        <a href="#">
+                            <div class="Author-img">
+                                <img src="~/assets/image/users/Author.jpg" alt="@Model.Author" />
+                            </div>
+                            <div class="Author-name"><span>@Model.Author</span></div>
+                        </a>
+                    </div>
+                    <div class="Author">
+                        <div class="Author-titel"><span>رسم</span></div>
+                        <a href="#">
+                            <div class="Author-img">
+                                <img src="~/assets/image/users/Author.jpg" alt="@Model.Artist" />
+                            </div>
+                            <div class="Author-name"><span>@Model.Artist</span></div>
+                        </a>
+                    </div>
+                    <div class="Author">
+                        <div class="Author-titel"><span>الناشر</span></div>
+                        <a href="#">
+                            <div class="Author-img">
+                                <img src="~/assets/image/users/Author.jpg" alt="@Model.Publisher" />
+                            </div>
+                            <div class="Author-name"><span>@Model.Publisher</span></div>
+                        </a>
+                    </div>
+                </address>
+                <div class="rating">
+                    <div class="rank">
+                        <div class="order">
+                            <h3>ترتيب الشعبية</h3>
+                        </div>
+                        <div class="icon-order">
+                            <i class="fas fa-trophy"></i>
+                            <span>4</span>
+                        </div>
+                    </div>
+                    <div class="views">
+                        <div class="view">
+                            <h3>عدد المشاهدات</h3>
+                        </div>
+                        <div class="icon-views">
+                            <i class="fas fa-eye"></i>
+                            <span>@(Model.Chapters.Sum(x => x.Watches))</span>
+                        </div>
+                    </div>
+                    <div class="chapers">
+                        <div class="chapter">
+                            <h3>عدد الفصول</h3>
+                        </div>
+                        <div class="icon-chapter">
+                            <i class="fas fa-file"></i>
+                            <span>@(Model.Chapters.Count)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-read">
+                    <div class="add-to">
+                        <span>اضافة الى المكتبة</span>
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="read">
+                        <span>قرائة</span>
+                        <i class="fas fas fa-book-reader"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="story-novel">
+            <div class="datil-nov">
+                <summary>
+                    <h2>القصة</h2>
+                </summary>
+                <h4>
+                    @Html.Raw(Model.Synposis)
+                </h4>
+            </div>
+        </div>
+        <div class="chapters">
+            <div class="chapter-titel">
+                <h2>الفصول</h2>
+            </div>
+            <div class="chapter-cont">
+                @{
+                    foreach (var chapter in Model.Chapters)
+                    {
+                        <div class="ch">
+                            <a asp-controller="Read" asp-action="Index" asp-route-NovelName="@Model.Title" asp-route-ChapterId="@chapter.Id">
+                                <span>@(chapter.Number): @(chapter.Title)</span>
+                                <div class="deat">
+                                    <span>@chapter.LastEdit</span>
+                                </div>
+                            </a>
+                            <div class="icon-ch">
+                                <div class="icon-com">
+                                    <a href="">
+                                        <i class="fas fa-comment"></i>
+                                        <span>UNKOWN</span>
+                                    </a>
+                                </div>
+                                <div class="icon-eye">
+                                    <a href="">
+                                        <i class="fas fas fa-eye"></i>
+                                        <span>@chapter.Watches</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+        <div class="comments">
+            <div class="comment-titel">
+                <i class="far fa-comments"></i>
+                <h2>تعليقات</h2>
+            </div>
+            <div class="comment-cont">
+                <div class="add-comment">
+                    <form action="">
+                        <input type="text" placeholder="اكتب تعليق">
+                        <button>
+                            <span>اضافة تعليق</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="motions">
+        <div class="container">
+            <div class="motion-titel">
+                <i class="fas fa-book"></i>
+                <h2>اقتراحات</h2>
+            </div>
+            <div class="motions-con">
+                @{
+                    for (int i = 0; i < 5; i++)
+                    {
+                        <div class="motio-novel">
+                            <div class="motio-img">
+                                <i class="fas fa-plus-square"></i>
+                                <a href="">
+                                    <img src="~/assets/image/imag_novel/manager-.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="motio-name">
+                                <a href="">
+                                    <h3>manager</h3>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+footer {
+  background-color: var(--section-background);
+  margin-top: 100px;
+  border-top: 2px solid var(--blue-alt-color);
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .box {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      h3 {
+        color: var(--blue-color);
+        font-size: 25px;
+      }
+      .social {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        li {
+          border-radius: 10px;
+          padding: 8px 15px;
+          background-color: gray;
+          a {
+            i {
+              color: var(--text-sec-color);
+            }
+          }
+        }
+        .facebook {
+          &:hover {
+            background-color: var(--blue-color);
+            a {
+              i {
+                color: var(--tect-main-color);
+              }
+
+            }
+          }
+        }
+        .youtube {
+          &:hover {
+            background-color: var( --red-color);
+            a {
+              i {
+                color: var(--tect-main-color);
+              }
+
+            }
+          }
+        }
+        .tiktok {
+          &:hover {
+            background-color: var(--bg-black);
+            a {
+              i {
+                color: var(--tect-main-color);
+              }
+
+            }
+          }
+        }
+        .instagram {
+          &:hover {
+            background-color: rgb(225 29 72);
+            a {
+              i {
+                color: var(--tect-main-color);
+              }
+
+            }
+          }
+        }
+        .twitter {
+          &:hover {
+            background-color:var(--bg-black);
+            a {
+              i {
+                color: var(--tect-main-color);
+              }
+            }
+          }
+        }
+      }
+      .text {
+        color: var(--text-sec-color);
+        &:hover {
+          color: var(--tect-main-color);
+        }
+      }
+      .navbar-footer {
+        display: flex;
+        flex-direction: column;
+        li {
+          a {
+            color: var(--text-sec-color);
+            display: flex;
+            flex-direction: row-reverse;
+            i {
+            }
+            span {
+            }
+          }
+        }
+      }
+    }
+    .copyr {
+      border-top: 2px solid var(--blue-alt-color);
+      display: flex;
+      justify-content: center;
+      h3 {
+        color: var(--tect-main-color);
+        span {
+        }
+      }
+    }
+  }
+}

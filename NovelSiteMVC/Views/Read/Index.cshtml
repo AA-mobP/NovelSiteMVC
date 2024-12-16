@@ -1,0 +1,178 @@
+﻿@model ReadViewModel
+@{
+    int Current = Array.IndexOf(ViewBag.ChaptersIndex, Model.Id);
+}
+<a class="ms-4 mb-5 position-absolute position-fixed bottom-0 start-0 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasOptions" role="button" aria-controls="offcanvasOptions">
+    +
+</a>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasOptions" aria-labelledby="offcanvasOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasOptionsLabel">إعدادات القراءة</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                الحجم
+            </button>
+            <ul class="dropdown-menu">
+                <li><input type="number" id="inputSize" onchange="SendSize()" value="25" min="9" class="dropdown-item"></li>
+            </ul>
+        </div>
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                لون الخلفية
+            </button>
+            <ul class="dropdown-menu">
+                <li><a onclick="ReadingOptions('color', 'dark')" class="dropdown-item" href="#">غامق</a></li>
+                <li><a onclick="ReadingOptions('color', 'light')" class="dropdown-item" href="#">فاتح</a></li>
+                @*                 <li><a class="dropdown-item" href="#">مخصص</a></li>
+                *@
+            </ul>
+        </div>
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                الخطوط
+            </button>
+            <ul class="dropdown-menu">
+                <li><a onclick="ReadingOptions('font', 'Noto Naskh Arabic')" class="dropdown-item" href="#">Noto Naskh Arabic</a></li>
+                <li><a onclick="ReadingOptions('font', 'El Messiri')" class="dropdown-item" href="#">El Messiri</a></li>
+                <li><a onclick="ReadingOptions('font', 'Marhey')" class="dropdown-item" href="#">Marhey</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row pb-5 pt-5">
+    <div class="col-2"></div>
+    <div class="col-2 text-center">
+        @if (Current > 0)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
+        }
+    </div>
+    <div class="col-4 text-center">
+        <a class="btn btn-info" asp-controller="Details" asp-action="Index" asp-route-id="@Model.NovelId">Return to Novel</a>
+    </div>
+    <div class="col-2 text-center">
+        @if (Current != ViewBag.ChaptersIndex.Length - 1)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
+        }
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<div class="chapter">
+    <div class="container">
+        <div class="chapter-titel">
+            <div class="chp-cont">
+                <div class="name-chapter"><h2>Chapter @(Model.Number): (@Model.Title)</h2></div>
+                <div class="text-opacity-75"><h4>TL: @Model.TLor | PR: @Model.PRer | QC: @Model.QCer</h4></div>
+                <div id="contentArea" oncontextmenu="preventContext();" class="container text-white bg-dark" style="user-select: none;">
+                    @Html.Raw(Model.Content)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const size = getCookie("PreferedSize");
+        if (size != null && size != "") {
+            ReadingOptions("size", size);
+        }
+
+        const font = getCookie("PreferedFont");
+        if (font != null && font != "") {
+            ReadingOptions("font", font);
+        }
+
+        const theme = getCookie("PreferedTheme");
+        if (theme != null && theme != "") {
+            ReadingOptions("color", theme);
+        }
+    })
+        ();
+
+    function SendSize() {
+        const option = document.getElementById("inputSize").value;
+        ReadingOptions('size', option);
+    }
+    function ReadingOptions(type, option) {
+        switch (type) {
+            case "size":
+                option = document.getElementById("inputSize").value = option;
+                document.getElementById("contentArea").style.fontSize = option + "px";
+                setCookie("PreferedSize", option, 365);
+                break;
+            case "font":
+                document.getElementById("contentArea").style.fontFamily = option;
+                setCookie("PreferedFont", option, 365);
+                break;
+            case "color":
+                if (option == "dark") {
+                    document.getElementById("contentArea").classList.remove("bg-light", "text-dark");
+                    document.getElementById("contentArea").classList.add("bg-dark", "text-white");
+                }
+                else if (option == "light") {
+                    document.getElementById("contentArea").classList.remove("bg-dark", "text-white");
+                    document.getElementById("contentArea").classList.add("bg-light", "text-dark");
+                }
+                setCookie("PreferedTheme", option, 365);
+                break;
+        }
+    }
+    function preventContext() {
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+        });
+    }
+
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = `${name}=${value};${expires};path=/`;
+    }
+
+    function getCookie(name) {
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookies = decodedCookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(name + "=") === 0) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+    }
+</script>
+
+<div class="row pb-5 pt-5">
+    <div class="col-2"></div>
+    <div class="col-2 text-center">
+        @if (Current > 0)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
+        }
+    </div>
+    <div class="col-4 text-center">
+        <a class="btn btn-info" asp-controller="Details" asp-action="Index" asp-route-id="@Model.NovelId">Return to Novel</a>
+    </div>
+    <div class="col-2 text-center">
+        @if (Current != ViewBag.ChaptersIndex.Length - 1)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
+        }
+    </div>
+    <div class="col-2"></div>
+</div>
+@section Scripts {
+    <script src="~/assets/js/viwe-chapter.js"></script>
+}
