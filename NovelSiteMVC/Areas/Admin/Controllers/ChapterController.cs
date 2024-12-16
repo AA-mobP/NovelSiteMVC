@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.ObjectModelRemoting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using NovelSiteMVC.Areas.Admin.Data;
 using NovelSiteMVC.Models;
 using NovelSiteMVC.ViewModels;
@@ -80,6 +82,71 @@ namespace NovelSiteMVC.Areas.Admin.Controllers
         {
             var listModel = await context.tblChapters.Where(chapter => chapter.NovelId == novelId).ToListAsync();
             return PartialView("getRelativeToNovel", listModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = await context.tblChapters.FindAsync(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(int id)
+        {
+            var model = await context.tblChapters.FindAsync(id);
+            if(model is not null)
+                context.Remove(model);
+            return View(model);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await context.tblChapters.FindAsync(id);
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit(AddChapterViewModel chapterModel)
+        {
+            //some checks
+            if (!ModelState.IsValid)
+                return View(chapterModel);
+
+            NovelModel? novel = await context.tblNovels.FindAsync(chapterModel.NovelId);
+            if (novel is null)
+                return BadRequest();
+            
+            string filePath = Path.Combine(Environment.WebRootPath, "assets", "Novels", novel.Title, $"{chapterModel.Number}.txt");
+
+            if (System.IO.File.Exists(filePath))
+            {
+                ModelState.AddModelError("Number", "this Chapter Number is Already Exists!");
+                return View(chapterModel);
+            }
+
+            //save the content to novel folder
+            await System.IO.File.WriteAllTextAsync(filePath, chapterModel.Content);
+
+            //add info to the db
+            ChapterModel chapter = new()
+            {
+                Id = chapterModel.Id,
+                Title = chapterModel.Title,
+                Number = chapterModel.Number,
+                NovelId = chapterModel.NovelId,
+                Releaser = "admin",
+                //TODO: make releaser Dynamic when finishing identity module
+                TLor = chapterModel.TLor,
+                PRer = chapterModel.PRer,
+                QCer = chapterModel.QCer,
+                Watches = 0,
+                LastEdit = DateTime.UtcNow
+            };
+            context.tblChapters.Add(chapter);
+            context.SaveChanges();
+
+            return RedirectToAction(nameof(Index), new { novelId = chapterModel.NovelId });
         }
     }
 }

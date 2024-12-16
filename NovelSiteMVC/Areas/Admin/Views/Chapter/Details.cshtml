@@ -1,0 +1,67 @@
+﻿@model NovelSiteMVC.ViewModels.AddChapterViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container bg-white">
+    <h1>Details</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Number" class="control-label"></label>
+                    <input type="number" asp-for="Number" class="form-control" />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control" style="height:20em;"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TLor" class="control-label"></label>
+                    <input asp-for="TLor" class="form-control" />
+                    <span asp-validation-for="TLor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PRer" class="control-label"></label>
+                    <input asp-for="PRer" class="form-control" />
+                    <span asp-validation-for="PRer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QCer" class="control-label"></label>
+                    <input asp-for="QCer" class="form-control" />
+                    <span asp-validation-for="QCer" class="text-danger"></span>
+                </div>
+                <input asp-for="NovelId" type="hidden" />
+                <input asp-for="Id" type="hidden" />
+                <div class="form-group m-2">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

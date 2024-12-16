@@ -12,5 +12,6 @@ namespace NovelSiteMVC.Models
         public DbSet<NovelModel> tblNovels { get; set; }
         public DbSet<ChapterModel> tblChapters { get; set; }
         public DbSet<BookmarkNovel> tblBookmarkedNovels { get; set; }
+        public DbSet<NovelSiteMVC.ViewModels.AddChapterViewModel> AddChapterViewModel { get; set; } = default!;
     }
 }
