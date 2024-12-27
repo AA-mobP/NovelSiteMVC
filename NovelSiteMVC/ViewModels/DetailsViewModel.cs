@@ -17,6 +17,8 @@ namespace NovelSiteMVC.ViewModels
         public string? Publisher { get; set; }
         public string? Theme { get; set; }
         public string? Genres { get; set; }
+        public int PageId { get; set; }
         public virtual ICollection<ChapterModel> Chapters { get; set; } = new HashSet<ChapterModel>();
+        public virtual ICollection<CommentModel> Comments { get; set; } = new HashSet<CommentModel>();
     }
 }

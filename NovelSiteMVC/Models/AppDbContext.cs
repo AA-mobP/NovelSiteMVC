@@ -12,6 +12,16 @@ namespace NovelSiteMVC.Models
         public DbSet<NovelModel> tblNovels { get; set; }
         public DbSet<ChapterModel> tblChapters { get; set; }
         public DbSet<BookmarkNovel> tblBookmarkedNovels { get; set; }
-        public DbSet<NovelSiteMVC.ViewModels.AddChapterViewModel> AddChapterViewModel { get; set; } = default!;
+        public DbSet<CommentModel> tblComments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.HasSequence<int>("PageIdSequence");
+            
+            builder.Entity<NovelModel>().Property(x => x.PageId).HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
+            builder.Entity<ChapterModel>().Property(x => x.PageId).HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
+        }
+
     }
 }

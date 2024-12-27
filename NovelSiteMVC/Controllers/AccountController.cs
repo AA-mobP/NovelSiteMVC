@@ -3,18 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NovelSiteMVC.Models;
 using NovelSiteMVC.ViewModels;
+using System.Security.Claims;
 
 namespace NovelSiteMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly AppDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signinManager;
+        private readonly IWebHostEnvironment Environment;
 
-        public AccountController(UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signinManager)
+        public AccountController(AppDbContext _context, UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signinManager, IWebHostEnvironment _Environment)
         {
+            context = _context;
             userManager = _userManager;
             signinManager = _signinManager;
+            Environment = _Environment;
         }
 
         public IActionResult Register()
@@ -31,9 +36,15 @@ namespace NovelSiteMVC.Controllers
                 return View(model);
 
             ApplicationUser? user = await userManager.FindByNameAsync(model.UserName);
-            if (user is not null) //username is not repeated
+            if (user is not null) //username MUST be not repeated
             {
-                ModelState.AddModelError("UserName", "this username has been taken already.");
+                ModelState.AddModelError("UserName", "this username has been taken.");
+                return View(model);
+            }
+            user = await userManager.FindByEmailAsync(model.Email);
+            if (user is not null)
+            {
+                ModelState.AddModelError("Email", "this email already exists.");
                 return View(model);
             }
             user = new();
@@ -88,7 +99,7 @@ namespace NovelSiteMVC.Controllers
             //be careful! you MUST send ViewModel Password not the user!
             bool isPasswordCorrect = await userManager.CheckPasswordAsync(user, model.Password);
 
-            if (!isPasswordCorrect)//password is not correct
+            if (!isPasswordCorrect)
             {
                 ModelState.AddModelError("Password", "Password isn't Correct");
                 return View(model);
@@ -103,6 +114,39 @@ namespace NovelSiteMVC.Controllers
         {
             await signinManager.SignOutAsync();
             return RedirectToAction("Register");
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            ApplicationUser? user = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (user is null)
+                return BadRequest();
+
+            ProfileViewModel profile = new()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                Country = user.Country,
+                PhotoUrl = user.PhotoUrl,
+                BackgroundPhotoUrl = user.BackgroundPhotoUrl
+            };
+
+            return View(profile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(ProfileViewModel profile, IFormFileCollection imageFiles)
+        {
+            ApplicationUser? user = context.Users.FirstOrDefault(x => x.Id == profile.Id);
+            user.Email = profile.Email;
+            user.Country = profile.Country;
+
+            context.Update(user);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Profile));
         }
     }
 }

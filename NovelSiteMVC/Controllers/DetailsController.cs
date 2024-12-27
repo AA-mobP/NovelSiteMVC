@@ -36,7 +36,12 @@ namespace NovelSiteMVC.Controllers
             model.LastEdit = novel.LastEdit;
             model.Synposis = novel.Synposis;
             model.Theme = novel.Theme;
+            model.PageId = novel.PageId;
+            model.Comments = context.tblComments.Include(x => x.User)
+                .Where(x => x.PageId == novel.PageId).OrderBy(x => x.Id)
+                .ToHashSet() ?? new HashSet<CommentModel>();
 
+            ViewBag.pageId = novel.PageId;
             return View(model);
         }
     }

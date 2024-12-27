@@ -24,5 +24,8 @@ namespace NovelSiteMVC.ViewModels
         public string? PRer { get; set; }
         [MaxLength(25)]
         public string? QCer { get; set; }
+        [MaxLength(25)]
+        [ValidateNever]
+        public string FileName { get; set; }
     }
 }

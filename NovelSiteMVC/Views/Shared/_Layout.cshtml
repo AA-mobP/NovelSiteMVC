@@ -17,7 +17,7 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <a asp-area="" asp-controller="Home" asp-action="Index"><img style="height:60px;" src="~/assets/image/logo2.png"/></a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><img style="height:60px;" src="~/assets/image/logo2.png" /></a>
                 </div>
                 <nav class="nav-bar">
                     <ul class="nav-bar-menu">
@@ -47,9 +47,7 @@
                         </div>
                     </div>
                 </nav>
-                <div class="login-out">
-                    <a href="./profile.html">تسجيل</a>
-                </div>
+                <partial name="_IdentityAccount"></partial>
             </div>
         </header>
         <main role="main" class="pb-3">

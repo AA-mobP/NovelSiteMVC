@@ -24,5 +24,9 @@ namespace NovelSiteMVC.Models
         [MaxLength(25)]
         public string? QCer { get; set; }
         public int Watches { get; set; } = 0;
+        [MaxLength(25)]
+        public string FileName { get; set; }
+
+        public int PageId { get; set; }
     }
 }

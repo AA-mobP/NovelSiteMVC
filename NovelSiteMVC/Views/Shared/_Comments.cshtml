@@ -1,0 +1,85 @@
+﻿@model HashSet<CommentModel>
+@{
+}
+<div class="comments">
+    <div class="comment-titel">
+        <i class="far fa-comments"></i>
+        <h2>تعليقات</h2>
+    </div>
+
+</div>
+<section class="text-white">
+    <div id="allComments">
+        @{
+            if (Model is not null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="d-flex flex-start align-items-center">
+                                <div>
+                                    <h6 class="fw-bold text-primary mb-1">@item?.User.UserName</h6>
+                                    <p class="text-muted small mb-0">
+                                        @item?.Date.ToShortDateString()
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 mb-4 pb-2">
+                                @item?.Content
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="center-flex">لا توجد تعليقات لعرضها</p>
+            }
+        }
+    </div>
+    <div class="comment-cont col-8">
+        <div class="add-comment">
+            <textarea style="width:100%;" onchange="isCanceld = false;" onreset="isCanceld = true;" id="textAreaComment" rows="4" placeholder="اكتب تعليق"></textarea>
+            <button class="btn btn-info" onclick="postComment()"> اضافة تعليق</button>
+        </div>
+    </div>
+</section>
+<script>
+    function postComment() {
+        console.log("before ajax");
+        $.ajax({
+            url: "/Comment/Add",
+            type: "POST",
+            data: {
+                "PageId": @(ViewBag.pageId),
+                "Content": document.getElementById("textAreaComment").innerText,
+                "UserId": @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                    },
+            success: function (result) {
+                console.log("on success");
+                const content = result.Content;
+                const date = result.Date;
+                const userName = result.UserName;
+                $('#allComments').append(`
+                                                        <div class="card-body">
+                                                        <div class="d-flex flex-start align-items-center">
+                                                            <div>
+                                                                <h6 class="fw-bold text-primary mb-1">${result.UserName}</h6>
+                                                                <p class="text-muted small mb-0">
+                                                                    ${result.Date}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mt-3 mb-4 pb-2">
+                                                            ${result.Content}
+                                                        </p>
+                                                    </div>
+                                                    `);
+                console.log("after success");
+            }
+        });
+    }
+</script>

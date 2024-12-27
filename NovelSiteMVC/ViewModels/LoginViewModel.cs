@@ -7,7 +7,7 @@ namespace NovelSiteMVC.ViewModels
         [Key]
         public int Id { get; set; }
         [Required]
-        public string LoginKey { get; set; }
+        public string? LoginKey { get; set; }
 
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }

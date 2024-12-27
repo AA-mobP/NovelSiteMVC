@@ -13,7 +13,8 @@ namespace NovelSiteMVC.ViewModels
         public string? TLor { get; set; }
         public string? PRer { get; set; }
         public string? QCer { get; set; }
-        public string NovelName { get; set; }
         public string Content { get; set; }
+        public int PageId { get; set; }
+        public virtual ICollection<CommentModel> Comments { get; set; } = new HashSet<CommentModel>();
     }
 }

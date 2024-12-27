@@ -9,6 +9,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="ValidationAttributes\" />
+    <Folder Include="wwwroot\assets\image\users\Foreground\" />
+    <Folder Include="wwwroot\assets\image\users\Background\" />
   </ItemGroup>
 
   <ItemGroup>

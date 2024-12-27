@@ -1,0 +1,16 @@
+﻿@{
+    if (User.Identity.Name == null)
+    {
+        <div class="login-out">
+            <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+        </div>
+    }
+    else
+    {
+        <div class="login-out">
+            <a asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a asp-area="" asp-controller="Account" asp-action="Signout">Signout</a>
+        </div>
+    }
+}

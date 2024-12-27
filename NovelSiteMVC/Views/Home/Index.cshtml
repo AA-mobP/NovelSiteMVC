@@ -30,7 +30,7 @@
                             foreach (var chapter in novel.Chapters)
                             {
                                 <div class="num-chapter">
-                                    <a asp-controller="Read" asp-action="Index" asp-route-NovelName="@novel.Title" asp-route-ChapterId="@chapter.Id">
+                                    <a asp-controller="Read" asp-action="Index" asp-route-ChapterId="@chapter.Id">
                                         <span>@(chapter.Number): @chapter.Title</span>
                                         <div class="deats">
                                             <i class="far fa-calendar-alt"></i>

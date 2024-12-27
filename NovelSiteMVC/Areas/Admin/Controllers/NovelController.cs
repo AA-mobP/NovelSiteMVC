@@ -30,7 +30,7 @@ namespace NovelSiteMVC.Areas.Admin.Controllers
         {
             NovelModel? novelModel = await _context.tblNovels
                 .FirstOrDefaultAsync(m => m.Id == id);
-            
+
             if (novelModel is null)
                 novelModel = new();
             return View(novelModel);
@@ -41,31 +41,34 @@ namespace NovelSiteMVC.Areas.Admin.Controllers
             NovelModel novelModel = new();
             return View(novelModel);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,AlterNames,Synposis,PublishDate,LastEdit,Author,Artist,Publisher,Theme,Genres")] NovelModel novelModel, IFormFile image)
         {
-            if (ModelState.IsValid)
-            {
-                //create Novel folder
-                Directory.CreateDirectory(Path.Combine(Environment.WebRootPath, "assets", "Novels", novelModel.Title));
+            if (!ModelState.IsValid)
+                return View(novelModel);
 
-                //save image
-                string PhotoName = $"{novelModel.Title}.{image.FileName.Split('.')[^1]}";
-                string filePath = Path.Combine(Environment.WebRootPath, "assets", "image", "imag_novel", PhotoName);
+            novelModel.PhotoName = "";
+            //add to database
+            await _context.AddAsync(novelModel);
+            await _context.SaveChangesAsync();
 
-                using FileStream fileStream = new FileStream(filePath, FileMode.Create);
-                image.CopyTo(fileStream);
+            var novel = await _context.tblNovels.OrderBy(x => x.Id).LastOrDefaultAsync(novel => novel.Title == novelModel.Title);
 
-                //add to database
-                novelModel.PhotoName = PhotoName;
-                _context.Add(novelModel);
-                await _context.SaveChangesAsync();
+            //create Novel folder
+            Directory.CreateDirectory(Path.Combine(Environment.WebRootPath, "assets", "Novels", novel.Id.ToString()));
+            string PhotoName = $"{novel.Id}.{image.FileName.Split('.')[^1]}";
 
-                return RedirectToAction(nameof(Index));
-            }
-            return View(novelModel);
+            //save image
+            string filePath = Path.Combine(Environment.WebRootPath, "assets", "image", "imag_novel", PhotoName);
+
+            using FileStream fileStream = new FileStream(filePath, FileMode.Create);
+            image.CopyTo(fileStream);
+            novel.PhotoName = PhotoName;
+            _context.Update(novel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -78,18 +81,13 @@ namespace NovelSiteMVC.Areas.Admin.Controllers
             NovelModel? model = _context.tblNovels.Find(novelModel.Id);
             if (model is null)
                 return NotFound();
-            if (model.Title != novelModel.Title)
-            {
-                //rename Novel folder
-                string dirPath = Path.Combine(Environment.WebRootPath, "assets", "Novels");
-                Directory.Move(Path.Combine(dirPath, model.Title), Path.Combine(dirPath, novelModel.Title));
-            }
+
             if (image is not null)
             {
                 //remove old image, put newer instead
-                string PhotoName = $"{novelModel.Title}.{image.FileName.Split('.')[^1]}";
+                string PhotoName = $"{novelModel.Id}.{image.FileName.Split('.')[^1]}";
                 string filePath = Path.Combine(Environment.WebRootPath, "assets", "image", "imag_novel", PhotoName);
-                
+
                 System.IO.File.Delete(Path.Combine(Environment.WebRootPath, "assets", "image", "imag_novel", model.PhotoName));
                 using FileStream fileStream = new FileStream(filePath, FileMode.Create);
                 image.CopyTo(fileStream);

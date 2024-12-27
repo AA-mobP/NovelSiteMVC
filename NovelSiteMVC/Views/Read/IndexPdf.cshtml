@@ -7,7 +7,7 @@
     <div class="col-2 text-center">
         @if (Current > 0)
         {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
         }
     </div>
     <div class="col-4 text-center">
@@ -16,7 +16,7 @@
     <div class="col-2 text-center">
         @if (Current != ViewBag.ChaptersIndex.Length - 1)
         {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
         }
     </div>
     <div class="col-2"></div>
@@ -119,7 +119,7 @@
     <div class="col-2 text-center">
         @if (Current > 0)
         {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
         }
     </div>
     <div class="col-4 text-center">
@@ -128,11 +128,16 @@
     <div class="col-2 text-center">
         @if (Current != ViewBag.ChaptersIndex.Length - 1)
         {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-NovelName="@Model.NovelName" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
         }
     </div>
     <div class="col-2"></div>
 </div>
+<hr />
+<div class="container">
+    <partial name="_Comments" model="@ViewBag.Comments"></partial>
+</div>
+
 @section Scripts {
     <script src="~/assets/js/viwe-chapter.js"></script>
 }

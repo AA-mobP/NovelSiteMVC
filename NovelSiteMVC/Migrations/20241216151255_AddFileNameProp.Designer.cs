@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NovelSiteMVC.Models;
 
@@ -11,9 +12,11 @@ using NovelSiteMVC.Models;
 namespace NovelSiteMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241216151255_AddFileNameProp")]
+    partial class AddFileNameProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,8 +24,6 @@ namespace NovelSiteMVC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.HasSequence<int>("PageIdSequence");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -174,7 +175,6 @@ namespace NovelSiteMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
@@ -279,11 +279,6 @@ namespace NovelSiteMVC.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("PageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
-
                     b.Property<string>("QCer")
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
@@ -310,40 +305,6 @@ namespace NovelSiteMVC.Migrations
                     b.HasIndex("NovelId");
 
                     b.ToTable("tblChapters");
-                });
-
-            modelBuilder.Entity("NovelSiteMVC.Models.CommentModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReplyTo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PageId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("tblComments");
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.NovelModel", b =>
@@ -376,11 +337,6 @@ namespace NovelSiteMVC.Migrations
 
                     b.Property<DateTime>("LastEdit")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("PageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
 
                     b.Property<string>("PhotoName")
                         .IsRequired()
@@ -495,22 +451,9 @@ namespace NovelSiteMVC.Migrations
                     b.Navigation("Novel");
                 });
 
-            modelBuilder.Entity("NovelSiteMVC.Models.CommentModel", b =>
-                {
-                    b.HasOne("NovelSiteMVC.Models.ApplicationUser", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("NovelSiteMVC.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Bookmarks");
-
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.NovelModel", b =>

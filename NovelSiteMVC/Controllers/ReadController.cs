@@ -19,7 +19,7 @@ namespace NovelSiteMVC.Controllers
             Environment = _Environmetn;
             cache = _cache;
         }
-        public IActionResult Index(string NovelName, int ChapterId)
+        public IActionResult Index(int ChapterId)
         {
             //fetch chapter from database
             var chapter = context.tblChapters.SingleOrDefault(x => x.Id == ChapterId);
@@ -27,7 +27,7 @@ namespace NovelSiteMVC.Controllers
                 return NotFound();
 
             //read chapter content and send it to read view
-            string filePath = Path.Combine(Environment.WebRootPath, "assets", "Novels", NovelName, $"{chapter.Number}");
+            string filePath = Path.Combine(Environment.WebRootPath, "assets", "Novels", chapter.NovelId.ToString(), $"{chapter.Number}");
 
             ReadViewModel model = new();
 
@@ -38,8 +38,11 @@ namespace NovelSiteMVC.Controllers
             model.QCer = chapter.QCer;
             model.TLor = chapter.TLor;
             model.NovelId = chapter.NovelId;
-            model.NovelName = NovelName;
-
+            model.PageId = chapter.PageId;
+            model.Comments = context.tblComments.Include(x => x.User)
+                .Where(x => x.PageId == chapter.PageId).OrderBy(x => x.Id)
+                .ToHashSet() ?? new HashSet<CommentModel>();
+            ViewBag.pageId = chapter.PageId;
             ViewBag.ChaptersIndex = context.tblChapters.Where(x => x.NovelId == chapter.NovelId).OrderBy(x => x.Id).Select(col => col.Id).ToArray();
 
             //increase watches by one

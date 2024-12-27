@@ -101,7 +101,7 @@
                     foreach (var chapter in Model.Chapters)
                     {
                         <div class="ch">
-                            <a asp-controller="Read" asp-action="Index" asp-route-NovelName="@Model.Title" asp-route-ChapterId="@chapter.Id">
+                            <a asp-controller="Read" asp-action="Index" asp-route-ChapterId="@chapter.Id">
                                 <span>@(chapter.Number): @(chapter.Title)</span>
                                 <div class="deat">
                                     <span>@chapter.LastEdit</span>
@@ -128,18 +128,10 @@
             </div>
         </div>
         <div class="comments">
-            <div class="comment-titel">
-                <i class="far fa-comments"></i>
-                <h2>تعليقات</h2>
-            </div>
+            
             <div class="comment-cont">
-                <div class="add-comment">
-                    <form action="">
-                        <input type="text" placeholder="اكتب تعليق">
-                        <button>
-                            <span>اضافة تعليق</span>
-                        </button>
-                    </form>
+                <div class="container">
+                    <partial name="_Comments" model="@Model.Comments ?? new List<CommentModel>()" />
                 </div>
             </div>
         </div>

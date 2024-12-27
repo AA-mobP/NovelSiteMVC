@@ -20,6 +20,8 @@ namespace NovelSiteMVC
                 options.Password.RequireDigit = false; ;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 0;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.AddDbContext<AppDbContext>(contextOptions =>
@@ -27,7 +29,7 @@ namespace NovelSiteMVC
                 if (builder.Environment.IsDevelopment())
                     contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("localSqlServer"));
                 else
-                    contextOptions.UseSqlServer(builder.Configuration.GetConnectionString(""));
+                    contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("localSqlServer"));
             });
             builder.Services.AddCors(options =>
             {
