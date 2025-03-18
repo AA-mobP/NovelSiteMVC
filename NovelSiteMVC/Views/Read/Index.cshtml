@@ -1,6 +1,8 @@
 ﻿@model ReadViewModel
 @{
     int Current = Array.IndexOf(ViewBag.ChaptersIndex, Model.Id);
+    Dictionary<int, int> coreInfo = new();
+    coreInfo.Add(Model.Id, Model.PageId);
 }
 <a class="ms-4 mb-5 position-absolute position-fixed bottom-0 start-0 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasOptions" role="button" aria-controls="offcanvasOptions">
     +
@@ -75,6 +77,32 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+<div class="row pb-5 pt-5">
+    <div class="col-2"></div>
+    <div class="col-2 text-center">
+        @if (Current > 0)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
+        }
+    </div>
+    <div class="col-4 text-center">
+        <a class="btn btn-info" asp-controller="Details" asp-action="Index" asp-route-id="@Model.NovelId">Return to Novel</a>
+    </div>
+    <div class="col-2 text-center">
+        @if (Current != ViewBag.ChaptersIndex.Length - 1)
+        {
+            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
+        }
+    </div>
+    <div class="col-2"></div>
+</div>
+<hr />
+<div class="container">
+    <partial name="_DisqusComments" model="@coreInfo"></partial>
 </div>
 
 <script>
@@ -153,30 +181,6 @@
         document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
     }
 </script>
-
-<div class="row pb-5 pt-5">
-    <div class="col-2"></div>
-    <div class="col-2 text-center">
-        @if (Current > 0)
-        {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current - 1]">Previous</a>
-        }
-    </div>
-    <div class="col-4 text-center">
-        <a class="btn btn-info" asp-controller="Details" asp-action="Index" asp-route-id="@Model.NovelId">Return to Novel</a>
-    </div>
-    <div class="col-2 text-center">
-        @if (Current != ViewBag.ChaptersIndex.Length - 1)
-        {
-            <a class="btn btn-info" asp-action="Index" asp-controller="Read" asp-route-ChapterId="@ViewBag.ChaptersIndex[Current + 1]">Next</a>
-        }
-    </div>
-    <div class="col-2"></div>
-</div>
-<hr />
-<div class="container">
-    <partial name="_Comments" model="@ViewBag.Comments"></partial>
-</div>
 @section Scripts {
     <script src="~/assets/js/viwe-chapter.js"></script>
 }

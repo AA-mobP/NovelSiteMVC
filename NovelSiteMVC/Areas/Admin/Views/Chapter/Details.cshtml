@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Content" class="form-label"></label>
-                    <textarea asp-for="Content" class="form-control" style="height:20em;"></textarea>
+                    <textarea id="tiny" asp-for="Content" class="form-control" style="height:20em;"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -68,3 +68,33 @@
         file.value = fileName;
     }
 </script>
+
+@section tinyMCE{
+    <script src="https://cdn.tiny.cloud/1/uta1udhgpz8skub411w5rvyq4cpvcik9ygr3hk5c3ncb68wc/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+
+        tinymce.init({
+
+            selector: 'textarea#tiny',
+
+            plugins: [
+
+                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'markdown',
+
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+
+                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount', 'directionality', 'image'
+
+            ],
+
+            toolbar: 'undo redo | a11ycheck casechange blocks | image | bold italic backcolor |' +
+
+                'alignleft aligncenter alignright alignjustify | ltr rtl | bullist numlist checklist outdent indent | removeformat | code table help',
+            directionality: 'rtl',
+            image_title: true
+
+        })
+
+    </script>
+}

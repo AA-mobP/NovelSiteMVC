@@ -1,6 +1,7 @@
 ﻿@model DetailsViewModel
 @{
-
+    Dictionary<int, int> coreInfo = new();
+    coreInfo.Add(Model.Id, Model.PageId);
 }
 <div class="novel-detail">
     <div class="container">
@@ -131,7 +132,7 @@
             
             <div class="comment-cont">
                 <div class="container">
-                    <partial name="_Comments" model="@Model.Comments ?? new List<CommentModel>()" />
+                    <partial name="_DisqusComments" model="coreInfo" />
                 </div>
             </div>
         </div>

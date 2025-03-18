@@ -1,6 +1,8 @@
 ﻿@model NovelSiteMVC.ViewModels.ReadViewModel
 @{
     int Current = Array.IndexOf(ViewBag.ChaptersIndex, Model.Id);
+    Dictionary<int, int> coreInfo = new();
+    coreInfo.Add(Model.Id, Model.PageId);
 }
 <div class="row pb-5 pt-5">
     <div class="col-2"></div>
@@ -135,7 +137,7 @@
 </div>
 <hr />
 <div class="container">
-    <partial name="_Comments" model="@ViewBag.Comments"></partial>
+    <partial name="_DisqusComments" model="coreInfo"></partial>
 </div>
 
 @section Scripts {
