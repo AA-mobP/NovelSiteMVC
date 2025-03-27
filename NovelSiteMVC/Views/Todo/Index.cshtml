@@ -1,0 +1,140 @@
+﻿@model IEnumerable<TodoModel>
+
+@{
+    ViewData["Title"] = "Index";
+    string color;
+    int itemOrder = 0;
+}
+<style>
+    #list1 .form-control {
+        border-color: transparent;
+    }
+
+        #list1 .form-control:focus {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+    #list1 .select-input.form-control[readonly]:not([disabled]) {
+        background-color: #fbfbfb;
+    }
+</style>
+<section class="vh-100">
+    <div class="py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card" id="list1" style="border-radius: .75rem; background-color: #bab;">
+                    <div class="card-body py-4 px-4 px-md-5">
+
+                        <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+                            <i class="fas fa-check-square me-1"></i>
+                            <u>مهام مينه</u>
+                        </p>
+
+                        <div class="pb-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <input type="text" class="form-control form-control-lg" id="taskInput"
+                                               placeholder="Add new...">
+                                        <input type="datetime-local" id="taskDueDate" data-mdb-tooltip-init title="Set due date"/>
+                                        <div>
+                                            <button onclick="AddNew_Clicked();" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Add</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
+                            <p class="small mb-0 me-2 text-muted">Filter</p>
+                            <select class="form-control" data-mdb-select-init>
+                                <option value="1">All</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Active</option>
+                                <option value="4">Has due date</option>
+                            </select>
+                            <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
+                            <select class="form-control" data-mdb-select-init>
+                                <option value="1">Added date</option>
+                                <option value="2">Due date</option>
+                            </select>
+                            <a href="#!" style="color: #23af89;" data-mdb-tooltip-init title="Ascending">
+                                <i class="fas fa-sort-amount-down-alt ms-2"></i>
+                            </a>
+                        </div>
+                        <div id="todoList">
+                            <!--Passed danger-->
+                            <!--Completed secondary-->
+                            <!--Active success-->
+                            <!--Has Due Date info-->
+                            @foreach (TodoModel item in Model)
+                            {
+                                itemOrder++;
+                                color = item.Status switch
+                                {
+                                    StatusType.Active => "success",
+                                    StatusType.HasDueDate => "info",
+                                    StatusType.Completed => "secondary",
+                                    StatusType.Passed => "danger",
+                                    _ => "",
+                                };
+                                <ul id="todoItem@(item.Id)" class="my-1 py-1 px-4 rounded-pill border border-3 border-@(color) list-group list-group-horizontal bg-@(color)">
+                                    <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-@(color)">
+                                        <div class="form-check">
+                                            <input class="form-check-input me-0" type="checkbox" for="@item.Id" value="" id="flexCheckChecked@(item.Id)"
+                                                   aria-label="..."/>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item ps-1 py-1 d-flex align-items-center flex-grow-1 border-0 bg-light">
+                                        <input ondblclick="" type="text" id="editInput@(item.Id)" name="@item.Id" disabled class="form-control lead fw-normal mb-0 border-0 bg-transparent" value="@item.Task" />
+                                    </li>
+                                    <li class="list-group-item pe-2 py-1 rounded-0 border-0 bg-light">
+                                        <div class="d-flex flex-row justify-content-end mb-1">
+                                            <a href="#!" onclick="editItem_Clicked('editInput@(item.Id)', 'confirmEdit@(item.Id)');" class="text-info" data-mdb-tooltip-init title="Edit todo">
+                                                <i class="fas fa-pencil-alt me-3"></i>
+                                            </a>
+                                            <a href="#" onclick="deleteItem_Clicked('todoItem@(item.Id)');" class="text-danger" data-mdb-tooltip-init title="Delete todo">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <a id="confirmEdit@(item.Id)" hidden href="#" onclick="confirmEdit_Clicked('todoItem@(item.Id)');" class="text-success" data-mdb-tooltip-init title="Edit Confirm">
+                                                <i class="bi bi-check-square-fill"></i>
+                                            </a>
+                                        </div>
+                                        <div class="text-end text-muted">
+                                            <a href="#!" class="text-muted" data-mdb-tooltip-init title="Created date">
+                                                <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>@(item.DueDate)</p>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script src="~/assets/js/todoItem.js"></script>
+    <script>
+        function AddNew_Clicked() {
+            console.log("AddNew_Clicked entered");
+            utilities.CreateTodoItem();
+        }
+        function deleteItem_Clicked(id) {
+            event.preventDefault();
+            console.log("deleteItem_Clicked(id) entered")
+            utilities.DeleteTodoItem(id);
+        }
+        function editItem_Clicked(id, confirmId) {
+            event.preventDefault();
+            console.log("editItem_Clicked(id) entered")
+            utilities.EditTodoItem(id, confirmId);
+        }
+    </script>
+}

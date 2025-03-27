@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NovelSiteMVC.ViewModels;
+using NovelSiteMVC.Models;
 
 namespace NovelSiteMVC.Models
 {
@@ -22,6 +23,7 @@ namespace NovelSiteMVC.Models
             builder.Entity<NovelModel>().Property(x => x.PageId).HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
             builder.Entity<ChapterModel>().Property(x => x.PageId).HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
         }
+        public DbSet<NovelSiteMVC.Models.TodoModel> TodoModel { get; set; } = default!;
 
     }
 }
