@@ -1,0 +1,61 @@
+﻿@model EditBlogViewModel
+
+@{
+    ViewData["Title"] = "معلومات المدونة";
+}
+<div style="direction:rtl;" class="container">
+    <h1>معلومات المدونة</h1>
+
+    <div>
+        <hr />
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    الاسم
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Title" />
+                </dd>
+            </dl>
+            <input type="hidden" asp-for="PageId" />
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="حفظ التغييرات" class="btn btn-info m-2" />
+        </form>
+        <a class="btn btn-info m-2" asp-action="Index">عودة للمدونات</a>
+    </div>
+    <hr />
+
+    <div class="accordion" id="mainAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" href="#" onclick="getRelativePosts(@Model.Id)">
+                    منشورات المدونة
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body container" id="listPosts">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+    function getRelativePosts(blogId) {
+        console.log(blogId);
+            $.ajax({
+                url: "/Post/getRelativeToBlog",
+                data: { "blogId": blogId },
+                type: "GET",
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById("listPosts").innerHTML = result;
+                }
+            });
+        }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

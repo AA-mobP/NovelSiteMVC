@@ -1,134 +1,24 @@
-﻿@model HomeViewModel
+﻿@model IEnumerable<string?>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الرئيسية";
 }
 
 <nav class="nav-top">
     <div class="container">
-        <div class="text-top">
+        <div class="text-top py-3">
             <h3>
                 <span class="fas fa-arrow-left"></span>
-                <span>احدث الفصول</span>
+                <span>المهام الفعّالة حاليا</span>
+                <span class="text-secondary">انتقل لصفحة المهام لتعديلهم</span>
             </h3>
         </div>
-        <ul class="novels-top">
-            @foreach (var novel in Model.LastUpdateNovels)
+            @foreach (var task in Model)
             {
-                <li class="novel">
-                    <a asp-controller="Details" asp-action="Index" asp-route-id="@novel.Id">
-                        <div class="img-fg">
-                            <img src="~/assets/image/imag_novel/@(novel.PhotoName)" alt="@novel.Title" />
-                            <div class="rank">
-                                <i class="fas fa-star"></i>
-                                <span>4.5</span>
-                            </div>
-                        </div>
-                        <div class="novel-titel">@novel.Title</div>
-                    </a>
-                    <div class="novel-chap">
-                        @{
-                            foreach (var chapter in novel.Chapters)
-                            {
-                                <div class="num-chapter">
-                                    <a asp-controller="Read" asp-action="Index" asp-route-ChapterId="@chapter.Id">
-                                        <span>@(chapter.Number): @chapter.Title</span>
-                                        <div class="deats">
-                                            <i class="far fa-calendar-alt"></i>
-                                            <span>@chapter.LastEdit.ToShortDateString()</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            }
-                        }
+                <div class="jumbotron jumbotron-fluid border-3 m-2 border-success bg-success">
+                    <div class="container">
+                    <h5 class="text-light display-6">@task</h5>
                     </div>
-                </li>
+                </div>
             }
-        </ul>
     </div>
 </nav>
-<section>
-    <div class="container">
-        <aside>
-            <div class="aside-titel">
-                <h3><i class="fas fa-book-open"></i><span>الاكثر قرائة</span></h3>
-                <div class="top-reade">
-                    <div class="day"><span>يومي</span></div>
-                    <div class="week"><span>اسبوعي</span></div>
-                    <div class="month"><span>كل</span></div>
-                </div>
-            </div>
-            <ul class="aside-novel">
-                @{
-                    foreach (var novel in Model.MostReadNovels)
-                    {
-                        <li class="list-novel">
-                            <a asp-controller="Details" asp-action="Index" asp-route-id="@novel.Id">
-                                <figure>
-                                    <img src="~/assets/image/imag_novel/@(novel.PhotoName)"
-                                         alt="@novel.Title" />
-                                </figure>
-                                <div class="info">
-                                    <div class="name">
-                                        <h4>@(novel.Title)</h4>
-                                    </div>
-                                    <div class="rating">
-                                        <span>@(novel.Theme)</span>
-
-                                        @{
-                                            string[] geners = novel.Genres.Split('،');
-                                        }
-                                        @for (int i = 0; i < geners.Length - 1; i++)
-                                        {
-                                            <span>@(geners[i])</span>
-                                        }
-                                    </div>
-                                    <div class="top">
-                                        <div class="arrow-up">
-                                            <i class="fas fas fa-arrow-alt-circle-up"></i>
-                                            <span>2+</span>
-                                        </div>
-                                        <div class="watch">
-                                            <i class="far fa-eye"></i>
-                                            <span>@(novel.ChaptersWatches > 999 ? $"{Math.Round((double)(novel.ChaptersWatches / 1000), 1)}K" : $"{novel.ChaptersWatches}")</span>
-                                        </div>
-                                        <div class="star">
-                                            <i class="fas fa-star"></i>
-                                            <span>4.5</span>
-                                        </div>
-                                    </div>
-                                    <div class="trop">
-                                        <i class="fas fa-trophy"></i>
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                }
-            </ul>
-        </aside>
-        <article>
-            <div class="alrt-title">
-                <h3>
-                    <i class="fas fa-file-alt"></i><span>روايات حديثة</span>
-                </h3>
-            </div>
-            <ul class="list-novels">
-                @{
-                    foreach (var novel in Model.RecentNovels)
-                    {
-                        <li class="novels-li">
-                            <a asp-controller="Details" asp-action="Index" asp-route-id="@novel.Id">
-                                <div class="fgr">
-                                    <img src="~/assets/image/imag_novel/@(novel.PhotoName)" alt="@(novel.Title)" />
-                                </div>
-                                <div class="nov-name"><span>@(novel.Title)</span></div>
-                            </a>
-                        </li>
-                    }
-                }
-
-            </ul>
-        </article>
-    </div>
-</section>

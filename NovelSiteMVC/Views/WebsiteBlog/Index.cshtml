@@ -1,0 +1,40 @@
+﻿@model List<PostsViewModel>
+@{
+    ViewData["Title"] = $"المدونات";
+}
+<a class="btn btn-sm btn-secondary my-3" asp-controller="Blog">لوحة تحكم المدونة</a>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    @foreach (var post in Model)
+    {
+        <div class="col">
+            <div class="card shadow-sm">
+                <a asp-controller="WebsitePost" asp-action="Index" asp-route-id="@post.Id">
+                    <img src="/uploads/covers/@post.PhotoName" alt="@post.Title" class="bd-placeholder-img card-img-top" height="225" width="100%" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false" />
+                </a> 
+                
+                <div class="card-body">
+                    <p class="card-text">@post.Title</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a asp-controller="WebsitePost" asp-action="Index" asp-route-id="@post.Id" class="btn btn-sm btn-outline-secondary">عرض</a> &nbsp;|&nbsp;
+                            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-sm btn-warning">تعديل</a> &nbsp;|&nbsp;
+                            <a asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">إهمال</a>
+                        </div>
+                        <small class="text-body-secondary">@post.LastEdit.ToShortDateString()</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section BlogSections {
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+            <a class="nav-item nav-link link-body-emphasis" asp-controller="WebsiteBlog" asp-action="Index" asp-route-category="all">الكل</a>
+            @foreach (var item in ViewBag.Categories)
+            {
+                <a class="nav-item nav-link link-body-emphasis" asp-controller="WebsiteBlog" asp-action="Index" asp-route-category="@(item.Id)">@item.Title</a>
+            }
+        </nav>
+    </div>
+}

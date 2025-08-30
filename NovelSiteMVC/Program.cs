@@ -1,6 +1,10 @@
+﻿using CLTelegramBot;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NovelSiteMVC.BussinessLogic;
+using NovelSiteMVC.Controllers;
 using NovelSiteMVC.Models;
+using System.Configuration;
 
 namespace NovelSiteMVC
 {
@@ -26,11 +30,9 @@ namespace NovelSiteMVC
 
             builder.Services.AddDbContext<AppDbContext>(contextOptions =>
              {
-                if (builder.Environment.IsDevelopment())
-                    contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("localSqlServer"));
-                else
-                    contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("localSqlServer"));
-            });
+                 //contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("localSqlServer"));
+                 contextOptions.UseSqlServer(builder.Configuration.GetConnectionString("HostSqlServer"));
+             });
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -39,10 +41,15 @@ namespace NovelSiteMVC
                 });
             });
             builder.Services.AddMemoryCache();
-            //Custom Services
-            
-            
+            //builder.Services.AddHangfire(options =>
+            //{
+            //    //options.UseSqlServerStorage(builder.Configuration.GetConnectionString("localSqlServer"));
+            //    options.UseSqlServerStorage(builder.Configuration.GetConnectionString("HostSqlServer"));
+            //});
+            //builder.Services.AddHangfireServer();
 
+            //Custom Services
+            builder.Services.AddScoped<IONUtility, ONUtility>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -61,6 +68,30 @@ namespace NovelSiteMVC
             app.UseAuthentication();
             app.UseAuthorization();
 
+            TelegramUtilities.ConfigBot();
+
+            app.MapGet("/api/check-daily-tasks", async (HttpContext context) =>
+            {
+                // في أي مكان يناسب بدء التشغيل (مثل متوسط البرمجيات middleware)
+
+                // عندما يتم الوصول إلى التطبيق بعد إعادة التشغيل
+                IONUtility utility = context.RequestServices.GetRequiredService<IONUtility>();
+
+                // تحقق مما إذا كان وقت إرسال الإشعار قد فات ولم يتم الإرسال
+                DateTime now = DateTime.UtcNow;
+                // تحقق من السجلات أو قاعدة البيانات لمعرفة ما إذا كان الإشعار قد تم إرساله بالفعل
+                bool alreadySent = ONUtility.CheckIfNotificationSentToday();
+                if (!alreadySent)
+                {
+                    // إرسال الإشعار مباشرة عند الوصول
+                    await utility.SendDailyTaskList();
+                }
+                //app.UseHangfireDashboard("/hangfire");
+
+
+            });
+            //RecurringJob.AddOrUpdate<IONUtility>("SendDailyTaskList", x => x.SendDailyTaskList(), Cron.Daily(3));
+            ////RecurringJob.RemoveIfExists("SendDailyTaskList");
 
             app.MapControllerRoute(
               name: "areas",

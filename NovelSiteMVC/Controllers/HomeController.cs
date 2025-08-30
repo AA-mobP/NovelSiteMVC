@@ -19,47 +19,49 @@ namespace NovelSiteMVC.Controllers
         [ResponseCache(Duration = 300, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
+            var ActiveList = context.tblTodos.Where(x => x.Status == StatusType.Active && x.isDeleted == false).Select(x => x.Task).ToList();
+
             //fetch last updated novels [order by chapter.lastupdate]
-            var model = new HomeViewModel();
+            //var model = new HomeViewModel();
 
-            model.LastUpdateNovels = context.tblNovels
-                .Select(novel => new LastUpdateNovelsViewModel()
-                {
-                    Id = novel.Id,
-                    Title = novel.Title,
-                    PhotoName = novel.PhotoName,
-                    Chapters = novel.Chapters
-                    .OrderByDescending(chapter => chapter.Number)
-                    .Take(2).ToList()
-                })
-                .OrderByDescending(novel => novel.Chapters.Max(chapter => chapter.LastEdit))
-                .Take(18)
-                .ToList();
+            //model.LastUpdateNovels = context.tblNovels
+            //    .Select(novel => new LastUpdateNovelsViewModel()
+            //    {
+            //        Id = novel.Id,
+            //        Title = novel.Title,
+            //        PhotoName = novel.PhotoName,
+            //        Chapters = novel.Chapters
+            //        .OrderByDescending(chapter => chapter.Number)
+            //        .Take(2).ToList()
+            //    })
+            //    .OrderByDescending(novel => novel.Chapters.Max(chapter => chapter.LastEdit))
+            //    .Take(18)
+            //    .ToList();
 
-            model.MostReadNovels = context.tblNovels
-                .Select(novel => new MostReadNovelsViewModel
-                {
-                    Id = novel.Id,
-                    Title = novel.Title,
-                    PhotoName = novel.PhotoName,
-                    Genres = novel.Genres,
-                    Theme = novel.Theme,
-                    ChaptersWatches = novel.Chapters.Sum(chapter => chapter.Watches)
-                })
-                .OrderByDescending(novel => novel.ChaptersWatches).Take(10) .ToList();
+            //model.MostReadNovels = context.tblNovels
+            //    .Select(novel => new MostReadNovelsViewModel
+            //    {
+            //        Id = novel.Id,
+            //        Title = novel.Title,
+            //        PhotoName = novel.PhotoName,
+            //        Genres = novel.Genres,
+            //        Theme = novel.Theme,
+            //        ChaptersWatches = novel.Chapters.Sum(chapter => chapter.Watches)
+            //    })
+            //    .OrderByDescending(novel => novel.ChaptersWatches).Take(10) .ToList();
 
-            model.RecentNovels = context.tblNovels
-                .OrderByDescending(novel => novel.PublishDate)
-                .Take(18)
-                .Select(novel => new NovelsViewModel()
-                {
-                    Id = novel.Id,
-                    Title = novel.Title,
-                    PhotoName = novel.PhotoName
-                })
-                .ToList();
+            //model.RecentNovels = context.tblNovels
+            //    .OrderByDescending(novel => novel.PublishDate)
+            //    .Take(18)
+            //    .Select(novel => new NovelsViewModel()
+            //    {
+            //        Id = novel.Id,
+            //        Title = novel.Title,
+            //        PhotoName = novel.PhotoName
+            //    })
+            //    .ToList();
 
-            return View(model);
+            return View(ActiveList);
         }
 
         public IActionResult Privacy()

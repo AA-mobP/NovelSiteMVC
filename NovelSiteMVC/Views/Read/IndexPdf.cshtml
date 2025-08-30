@@ -1,7 +1,7 @@
 ﻿@model NovelSiteMVC.ViewModels.ReadViewModel
 @{
     int Current = Array.IndexOf(ViewBag.ChaptersIndex, Model.Id);
-    Dictionary<int, int> coreInfo = new();
+    Dictionary<int, int?> coreInfo = new();
     coreInfo.Add(Model.Id, Model.PageId);
 }
 <div class="row pb-5 pt-5">

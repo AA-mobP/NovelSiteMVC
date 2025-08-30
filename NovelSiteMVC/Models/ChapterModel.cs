@@ -27,6 +27,6 @@ namespace NovelSiteMVC.Models
         [MaxLength(25)]
         public string FileName { get; set; }
 
-        public int PageId { get; set; }
+        public int? PageId { get; set; }
     }
 }

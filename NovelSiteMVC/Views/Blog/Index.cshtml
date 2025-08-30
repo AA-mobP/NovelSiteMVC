@@ -1,0 +1,40 @@
+﻿@model IEnumerable<BlogListViewModel>
+
+@{
+    ViewData["Title"] = "المدونات";
+}
+
+<h1>قائمة المدونات</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">أضف مدونة</a>
+</p>
+<hr />
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                الاسم
+            </th>
+            <th>
+                معرّف الصفحة
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr onclick="location.href='/Blog/Details/@(item.Id)';" style="cursor:pointer;">
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PageId)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">نقل للمهملات</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

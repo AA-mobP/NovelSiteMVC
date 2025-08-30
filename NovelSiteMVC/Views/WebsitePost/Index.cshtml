@@ -1,0 +1,27 @@
+﻿@model NovelSiteMVC.ViewModels.ViewPostVM
+
+@{
+    ViewData["Title"] = $"المنشور - {Model.Title}";
+    Dictionary<int, int?> coreInfo = new();
+    coreInfo.Add(Model.Id, Model.PageId);
+}
+
+<a class="btn btn-sm btn-secondary my-3" asp-controller="Blog">لوحة تحكم المدونة</a>
+
+<div class="text-center">
+    <img style="max-width:75%" src="/uploads/covers/@Model.PhotoName"/>
+    <h2 class="text-center p-3" >@Model.Title</h2>
+    <h5 class="text-center">تأليف: @Model.Author</h5>
+    <hr />
+    <div>
+        @Html.Raw(Model.Content)
+    </div>
+</div>
+<div>
+    <a asp-controller="Post" asp-action="Details" asp-route-id="@Model?.Id">تعديل</a> |
+    <a asp-controller="WebsiteBlog" asp-action="Index">عودة للمدونات</a>
+</div>
+<hr />
+<div>
+    <partial name="_DisqusComments" model="@coreInfo"></partial>
+</div>

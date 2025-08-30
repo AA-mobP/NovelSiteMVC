@@ -235,6 +235,32 @@ namespace NovelSiteMVC.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("NovelSiteMVC.Models.BlogModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("PageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblBlogs", (string)null);
+                });
+
             modelBuilder.Entity("NovelSiteMVC.Models.BookmarkNovel", b =>
                 {
                     b.Property<int>("NovelId")
@@ -250,7 +276,7 @@ namespace NovelSiteMVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("tblBookmarkedNovels");
+                    b.ToTable("tblBookmarkedNovels", (string)null);
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.ChapterModel", b =>
@@ -279,7 +305,7 @@ namespace NovelSiteMVC.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("PageId")
+                    b.Property<int?>("PageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
@@ -309,7 +335,7 @@ namespace NovelSiteMVC.Migrations
 
                     b.HasIndex("NovelId");
 
-                    b.ToTable("tblChapters");
+                    b.ToTable("tblChapters", (string)null);
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.CommentModel", b =>
@@ -343,7 +369,7 @@ namespace NovelSiteMVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("tblComments");
+                    b.ToTable("tblComments", (string)null);
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.NovelModel", b =>
@@ -377,7 +403,7 @@ namespace NovelSiteMVC.Migrations
                     b.Property<DateTime>("LastEdit")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PageId")
+                    b.Property<int?>("PageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
@@ -411,7 +437,57 @@ namespace NovelSiteMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblNovels");
+                    b.ToTable("tblNovels", (string)null);
+                });
+
+            modelBuilder.Entity("NovelSiteMVC.Models.PostModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastEdit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR PageIdSequence");
+
+                    b.Property<string>("PhotoName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Watches")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.ToTable("tblPosts", (string)null);
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.TodoModel", b =>
@@ -441,7 +517,7 @@ namespace NovelSiteMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoModel");
+                    b.ToTable("tblTodos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -536,11 +612,27 @@ namespace NovelSiteMVC.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("NovelSiteMVC.Models.PostModel", b =>
+                {
+                    b.HasOne("NovelSiteMVC.Models.BlogModel", "Blog")
+                        .WithMany("Posts")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+                });
+
             modelBuilder.Entity("NovelSiteMVC.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Bookmarks");
 
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("NovelSiteMVC.Models.BlogModel", b =>
+                {
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("NovelSiteMVC.Models.NovelModel", b =>

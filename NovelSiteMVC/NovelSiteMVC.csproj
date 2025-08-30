@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,20 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\image\users\**" />
+    <Content Remove="wwwroot\assets\image\users\**" />
+    <EmbeddedResource Remove="wwwroot\assets\image\users\**" />
+    <None Remove="wwwroot\assets\image\users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="ValidationAttributes\" />
-    <Folder Include="wwwroot\assets\image\users\Foreground\" />
-    <Folder Include="wwwroot\assets\image\users\Background\" />
+    <Folder Include="wwwroot\assets\Blogs\" />
+    <Folder Include="wwwroot\assets\Novels\" />
+    <Folder Include="wwwroot\uploads\posts\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">    
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Telegram.Bot" Version="22.5.0" />
+    <PackageReference Include="Telegram.Bots.Extensions.Polling" Version="5.9.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,101 @@
+﻿@model NovelSiteMVC.ViewModels.EditPostViewModel
+
+@{
+    ViewData["Title"] = "معلومات المنشور";
+}
+
+<div class="container">
+    <h1>معلومات المنشور</h1>
+
+    <div>
+        <hr />
+        <form asp-area="" asp-controller="Post" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    <label>الغلاف</label>
+                </dt>
+                <dd class="col-sm-4">
+                    <input type="file" class="form-control" name="image" />
+                    <span class="text-info">ننصحك دائما برفع صورة خفيفة الحجم ومأخوذة بالعرض وليس بالطول لتظهر بشكل جميل في الموقع</span>
+                </dd>
+                <dd class="col-sm-6">
+                    <img style="width:90%;height:70%;" src="~/uploads/covers/@Model.PhotoName" class="form-control border border-2" name="image" />
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    العنوان
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    المحتوى
+                </dt>
+                <dd class="col-sm-10">
+                    <textarea class="form-control" asp-for="Content"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    الكاتب
+                </dt>
+                <dd class="col-sm-10">
+                    <input class="form-control" asp-for="Author" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </dd>
+            </dl>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="BlogId" />
+            <input type="submit" value="تعديل" class="btn btn-info m-2" />
+        </form>
+    </div>
+    <div>
+        <a class="btn btn-info m-2" asp-controller="Blog" asp-action="Details" asp-route-id="@Model.BlogId">عودة للمدونة</a>
+    </div>
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@section tinyMCE {
+    <script src="https://cdn.tiny.cloud/1/uta1udhgpz8skub411w5rvyq4cpvcik9ygr3hk5c3ncb68wc/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+
+        tinymce.init({
+
+            selector: 'textarea#Content',
+
+            plugins: [
+
+                'advlist', 'autolink',
+
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+
+                'fullscreen', 'insertdatetime', 'media', 'table', 'help', 'wordcount', 'directionality'
+
+            ],
+
+            toolbar: 'undo redo | casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | ltr rtl |' +
+
+                'bullist numlist outdent indent | removeformat | help',
+
+            directionality: 'rtl',
+
+            images_upload_url: '/Post/UploadPostImage',
+
+            automatic_uploads: true,
+
+            relative_urls: false
+        });
+
+    </script>
+}

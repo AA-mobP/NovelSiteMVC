@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PostsViewModel>
+
+@{
+    ViewData["Title"] = "جلب منشورات المدونة";
+}
+<h4>منشورات المدونة</h4>
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create" asp-route-blogId="@(ViewBag.BlogId)">إضافة منشور</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                العنوان
+            </th>
+            <th>
+                الكاتب
+            </th>
+            <th>
+                آخر تعديل
+            </th>
+            <th>
+                المشاهدات
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr onclick="location.href='/post/details/@(item.Id)';" style="cursor:pointer;">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastEdit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Watches)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">نقل للمهملات</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

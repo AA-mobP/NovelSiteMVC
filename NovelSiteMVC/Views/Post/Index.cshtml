@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PostsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+</p>
+<hr />
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastEdit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Watches)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEdit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Watches)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">نقل للمهملات</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

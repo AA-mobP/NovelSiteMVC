@@ -29,7 +29,7 @@ namespace NovelSiteMVC.Models
         [MaxLength(50)]
         public string Genres { get; set; } = string.Empty;
 
-        public int PageId { get; set; }
+        public int? PageId { get; set; }
 
         public virtual ICollection<BookmarkNovel> Bookmarks { get; set; } = new HashSet<BookmarkNovel>();
         public virtual ICollection<ChapterModel> Chapters { get; set; } = new HashSet<ChapterModel>();

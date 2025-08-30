@@ -1,0 +1,195 @@
+﻿/* نمط CSS المحسن للشخصية الكرتونية */
+.animated-character {
+    position: fixed;
+    bottom: 20px; /* هامش من الأسفل */
+    right: 20px; /* هامش من اليمين */
+    z-index: 1000;
+    transition: all 0.5s ease;
+    opacity: 0;
+    max-width: 20%; /* نسبة من عرض الشاشة */
+    min-width: 100px; /* حد أدنى للحجم */
+    max-height: 30vh; /* نسبة من ارتفاع الشاشة */
+}
+
+    .animated-character img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .animated-character.active {
+        animation: float 3s ease-in-out infinite, character-enter 0.5s ease-out;
+        opacity: 1;
+    }
+
+@keyframes character-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+.speech-bubble {
+    position: absolute;
+    background: white !important; /* تثبيت لون الخلفية بغض النظر عن الوضع */
+    color: black !important; /* تثبيت لون النص بغض النظر عن الوضع */
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 2px solid black; /* إضافة حدود سوداء */
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 250px;
+    width: max-content;
+    text-align: center;
+    word-wrap: break-word;
+    height: auto; /* السماح للارتفاع بالزيادة تلقائيًا */
+    /* إضافة هامش سفلي لإفساح المجال للمثلث */
+    margin-bottom: 15px;
+    animation: bubble-pulse 2s ease-in-out infinite;
+}
+
+
+
+/* تأكد من أن الفقاعة لا تخرج خارج الشاشة */
+@media (max-width: 768px) {
+    .speech-bubble {
+        max-width: 80vw;
+        left: 0;
+        transform: none;
+    }
+}
+
+@keyframes bubble-pulse {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.03);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.speech-bubble:hover {
+    animation-play-state: paused;
+}
+
+/* تعديل التأثير عندما تكون الفقاعة على اليمين أو اليسار */
+.speech-bubble[style*="transform: none"] {
+    animation: none;
+}
+
+/* استبدال المعين بمثلث لا يغطي على المحتوى */
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -12px; /* موضع المثلث خارج الفقاعة */
+    left: 50%;
+    margin-left: -10px; /* نصف عرض المثلث */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 12px solid black; /* حدود المثلث الخارجية بلون أسود */
+}
+
+/* إضافة مثلث داخلي أبيض */
+.speech-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: -9px; /* قليلا في الأعلى من المثلث الخارجي */
+    left: 50%;
+    margin-left: -8px; /* نصف عرض المثلث الداخلي */
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid white; /* مثلث داخلي أبيض */
+    z-index: 1; /* للتأكد من أنه في الأعلى */
+}
+
+/* نمط إضافي عندما تكون الفقاعة أسفل الشخصية */
+.speech-bubble.bubble-bottom:after {
+    bottom: auto;
+    top: -12px;
+    border-top: none;
+    border-bottom: 12px solid black;
+}
+
+.speech-bubble.bubble-bottom:before {
+    bottom: auto;
+    top: -9px;
+    border-top: none;
+    border-bottom: 10px solid white;
+}
+
+.close-character {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001; /* للتأكد من ظهوره فوق جميع العناصر */
+}
+    
+.close-character:hover {
+        background: rgba(255, 0, 0, 0.8);
+        transform: scale(1.1);
+    }
+
+/* إضافة تأثيرات حركية للشخصية */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animated-character.active {
+    animation: float 3s ease-in-out infinite;
+    opacity: 1;
+}
+
+    /* تأثير عند حوم المؤشر */
+    .animated-character.active:hover {
+        animation-play-state: paused;
+        transform: scale(1.05);
+    }
+
+/* تعديلات للأجهزة المحمولة */
+@media (max-width: 576px) {
+    .animated-character {
+        max-width: 30%; /* نسبة أكبر على الشاشات الصغيرة */
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .speech-bubble {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
